@@ -84,7 +84,7 @@ const CRITICAL_DATA_KEYS: readonly string[] = [
     'availableShots', 'selectedShotIds', 'selectedSourceNodes', 'splitShots', 'isSplitting', 'generatedPrompt', 'fusedImage',
     'isLoading', 'isLoadingFusion', 'promptModified', 'status', 'statusMessage',
     'audioUri', 'images', 'videoUris', 'isCached', 'cacheLocation',
-    'episodeStoryboard', 'generationMode',
+    'episodeStoryboard', 'generationMode', 'videoProvider',
     'dramaIntroduction', 'worldview',
 ] as const;
 
@@ -652,6 +652,17 @@ const NodeComponent: React.FC<NodeProps> = ({
             >
               <Database className="w-3 h-3 text-green-400" />
               <span className="text-[9px] font-medium text-green-400">缓存</span>
+            </div>
+          )}
+          {node.type === NodeType.VIDEO_GENERATOR && node.data.videoProvider && (
+            <div
+              className="flex items-center gap-1 px-2 py-0.5 bg-cyan-500/15 border border-cyan-500/25 rounded-full ml-1"
+              title={`视频由 ${node.data.videoProvider === 'sora2' ? 'Sora 2' : 'Gemini'} 路径生成`}
+            >
+              <Layers className="w-3 h-3 text-cyan-400" />
+              <span className="text-[9px] font-medium text-cyan-300">
+                {node.data.videoProvider === 'sora2' ? 'Sora 2' : 'Gemini'}
+              </span>
             </div>
           )}
         </div>

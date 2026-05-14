@@ -2700,6 +2700,7 @@ export const MediaContent: React.FC<NodeContentContext> = (ctx) => {
       }
 
       const hasContent = node.data.image || node.data.videoUri;
+      const videoProvider = node.data.videoProvider || node.data.videoMetadata?.provider;
       return (
         <div className="w-full h-full relative group/media overflow-hidden bg-zinc-900" onMouseEnter={() => {}} onMouseLeave={() => {}}>
             {!hasContent ? (
@@ -2720,6 +2721,12 @@ export const MediaContent: React.FC<NodeContentContext> = (ctx) => {
                             style={showImageGrid ? STYLE_BLUR_ON : STYLE_BLUR_OFF} // Pass Style
                         />
                     }
+                    {node.type === NodeType.VIDEO_GENERATOR && videoProvider && node.data.videoUri && (
+                        <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/10 px-2 py-1 text-[10px] font-medium text-slate-200 shadow-lg">
+                            <Layers size={10} className="text-cyan-400" />
+                            <span>{videoProvider === 'sora2' ? 'Sora 2 路由' : 'Gemini 路由'}</span>
+                        </div>
+                    )}
                     {node.status === NodeStatus.ERROR && <div className="absolute inset-0 bg-black/60 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center z-20"><AlertCircle className="text-red-500 mb-2" /><span className="text-xs text-red-200">{typeof node.data.error === 'string' ? node.data.error : (node.data.error?.message || String(node.data.error || ''))}</span></div>}
                     {showImageGrid && (node.data.images || node.data.videoUris) && (
                         <div className="absolute inset-0 bg-black/40 z-10 grid grid-cols-2 gap-2 p-2 animate-in fade-in duration-200">

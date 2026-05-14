@@ -108,9 +108,13 @@ export class VideoGeneratorNodeService extends BaseNodeService {
         videoUri: result.uri,
         videoUris: result.uris || [result.uri],
         videoUrl: result.uri,
+        videoProvider: providerKey === 'sora2' ? 'sora2' : 'gemini',
         thumbnailUrl: result.videoMetadata?.thumbnail,
         isFallbackImage: result.isFallbackImage,
-        videoMetadata: result.videoMetadata,
+        videoMetadata: {
+          ...result.videoMetadata,
+          provider: providerKey === 'sora2' ? 'sora2' : 'gemini'
+        },
         resolution: result.videoResolution || node.data.resolution || inferLegacyVideoResolution(request),
         duration: result.videoDuration ?? node.data.duration,
         generatedAt: new Date().toISOString()
@@ -292,7 +296,10 @@ export class VideoGeneratorNodeService extends BaseNodeService {
       uri: result.uri,
       uris: result.uris || [result.uri],
       isFallbackImage: result.isFallbackImage,
-      videoMetadata: result.videoMetadata
+      videoMetadata: {
+        ...result.videoMetadata,
+        provider: 'gemini'
+      }
     };
   }
 

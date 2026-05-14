@@ -214,6 +214,7 @@ export interface AppNode {
     videoUri?: string; // URL
     videoUris?: string[]; // Array of URLs (for multiple video generations)
     videoMetadata?: any; // Stores the raw Video object from Gemini API for extension
+    videoProvider?: string; // Which runtime path produced the video (e.g. sora2, gemini)
     audioUri?: string; // Base64 or Blob URL for Audio Node
     analysis?: string; // Video analysis result
     error?: string;
