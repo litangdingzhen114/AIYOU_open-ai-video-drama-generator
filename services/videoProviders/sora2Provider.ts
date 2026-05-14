@@ -11,7 +11,6 @@ import {
   VideoProviderContext,
   VideoModelConfig,
 } from './types';
-import { getProvider } from '../soraProviders';
 import type { SoraProviderType } from '../soraProviders/types';
 
 export class Sora2VideoProvider implements VideoProvider {
@@ -46,6 +45,7 @@ export class Sora2VideoProvider implements VideoProvider {
   ): Promise<VideoSubmitResult> {
     // 从存储中获取用户选择的 Sora2 提供商
     const { getSoraProvider } = await import('../soraConfigService');
+    const { getProvider } = await import('../soraProviders');
     const providerName = getSoraProvider() as SoraProviderType;
 
     const soraProvider = getProvider(providerName);
@@ -79,6 +79,7 @@ export class Sora2VideoProvider implements VideoProvider {
     context?: VideoProviderContext
   ): Promise<VideoGenerationResult> {
     const { getSoraProvider } = await import('../soraConfigService');
+    const { getProvider } = await import('../soraProviders');
     const providerName = getSoraProvider() as SoraProviderType;
 
     const soraProvider = getProvider(providerName);

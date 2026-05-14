@@ -6,14 +6,14 @@
 /**
  * 支持的视频模型类型
  */
-export type VideoProviderType = 'sora2' | 'kling' | 'luma' | 'runway';
+export type VideoProviderType = 'sora2' | 'kling' | 'luma' | 'runway' | 'higgsfield';
 
 /**
  * 用户配置（统一格式）
  */
 export interface VideoModelConfig {
   aspect_ratio: '16:9' | '9:16';
-  duration: '5' | '10' | '15';
+  duration: '5' | '10' | '15' | '25';
   quality: 'standard' | 'pro';
 }
 
@@ -90,6 +90,21 @@ export interface VideoProvider {
     onProgress?: (progress: number) => void,
     context?: VideoProviderContext
   ): Promise<VideoGenerationResult>;
+}
+
+/**
+ * 视频提供商在注册表中的状态
+ */
+export type VideoProviderReadiness = 'ready' | 'preview' | 'stub';
+
+/**
+ * 视频提供商目录项
+ */
+export interface VideoProviderCatalogEntry {
+  name: VideoProviderType;
+  displayName: string;
+  readiness: VideoProviderReadiness;
+  supportedFeatures: VideoProvider['supportedFeatures'];
 }
 
 /**
