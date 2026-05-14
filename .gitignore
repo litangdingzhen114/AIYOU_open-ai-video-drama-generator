@@ -57,6 +57,7 @@ uploads/
 *.tmp
 *.temp
 .cache/
+analysis/
 
 # === OS ===
 Thumbs.db
