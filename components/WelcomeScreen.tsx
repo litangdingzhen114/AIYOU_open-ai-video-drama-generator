@@ -8,7 +8,6 @@
 // components/WelcomeScreen.tsx
 import React from 'react';
 import { useLanguage } from '../src/i18n/LanguageContext';
-import { Galaxy } from './Galaxy';
 
 interface WelcomeScreenProps {
   visible: boolean;
@@ -29,26 +28,16 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = React.memo(({ visible
         visible ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
       }`}
     >
-      {/* 背景星空 */}
+      {/* 背景壁纸 */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <Galaxy
-          focal={[0.5, 0.5]}
-          rotation={[1.0, 0.0]}
-          starSpeed={0.5}
-          density={1.2}
-          hueShift={280}
-          disableAnimation={false}
-          speed={0.7}
-          mouseInteraction={true}
-          glowIntensity={0.6}
-          saturation={0.6}
-          mouseRepulsion={true}
-          twinkleIntensity={0.3}
-          rotationSpeed={0.1}
-          repulsionStrength={2}
-          autoCenterRepulsion={0}
-          transparent={false}
+        <img
+          src="/aiyou-hero-wallpaper.jpg"
+          alt=""
+          aria-hidden="true"
+          className="h-full w-full object-cover"
         />
+        <div className="absolute inset-0 bg-black/45" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(8,15,30,0.05),rgba(0,0,0,0.55))]" />
       </div>
 
       {/* 标题 */}
