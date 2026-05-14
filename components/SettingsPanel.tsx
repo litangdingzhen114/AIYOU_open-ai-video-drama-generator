@@ -6,6 +6,7 @@ import { LLMProviderType } from '../types';
 import { StorageSettingsPanel } from './StorageSettingsPanel';
 import { ModelPriorityTab } from './settings/ModelPriorityTab';
 import { SoraSettingsTab } from './settings/SoraSettingsTab';
+import { VideoProvidersTab } from './settings/VideoProvidersTab';
 
 interface SettingsPanelProps {
   isOpen: boolean;
@@ -19,7 +20,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
   const [isValidating, setIsValidating] = useState(false);
   const [validationStatus, setValidationStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
-  const [activeTab, setActiveTab] = useState<'basic' | 'models' | 'storage' | 'sora'>('basic');
+  const [activeTab, setActiveTab] = useState<'basic' | 'models' | 'providers' | 'storage' | 'sora'>('basic');
 
   // LLM 提供商配置
   const [llmProvider, setLlmProvider] = useState<LLMProviderType>('gemini');
@@ -276,6 +277,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
           {[
             { key: 'basic' as const, label: '基础设置', activeColor: 'text-cyan-400 border-cyan-400' },
             { key: 'models' as const, label: '默认模型', activeColor: 'text-cyan-400 border-cyan-400' },
+            { key: 'providers' as const, label: '视频提供商', activeColor: 'text-violet-400 border-violet-400' },
             { key: 'sora' as const, label: 'Sora 2', activeColor: 'text-green-400 border-green-400' },
             { key: 'storage' as const, label: '存储设置', activeColor: 'text-cyan-400 border-cyan-400' },
           ].map(tab => (
@@ -533,6 +535,8 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
             </div>
           ) : activeTab === 'models' ? (
             <ModelPriorityTab onClose={onClose} />
+          ) : activeTab === 'providers' ? (
+            <VideoProvidersTab onClose={onClose} />
           ) : activeTab === 'sora' ? (
             <SoraSettingsTab onClose={onClose} />
           ) : (
@@ -542,7 +546,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
           )}
         </div>
 
-        {/* 底部按钮 - 仅 basic 和 storage tab 需要 */}
+        {/* 底部按钮 - 仅 basic tab 需要 */}
         {activeTab === 'basic' && (
           <div className="relative flex items-center justify-between px-6 py-4 border-t border-white/5 bg-[#121214]">
             <button
