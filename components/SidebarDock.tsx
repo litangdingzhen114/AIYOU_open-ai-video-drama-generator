@@ -155,22 +155,22 @@ export const SidebarDock: React.FC<SidebarDockProps> = ({
 
             return (
                 <>
-                    <div className="p-4 border-b border-white/5 flex flex-col gap-3 bg-white/5">
+                    <div className="p-4 border-b border-white/5 flex flex-col gap-3 bg-white/[0.03]">
                         <div className="flex justify-between items-center">
                             <button onClick={() => setActivePanel(null)}><X size={14} className="text-slate-500 hover:text-white" /></button>
                             <span className="text-xs font-bold uppercase tracking-widest text-white/50">历史记录</span>
                         </div>
                         {/* Tabs */}
-                        <div className="flex bg-black/20 p-1 rounded-lg">
+                        <div className="flex bg-white/5 p-1 rounded-lg border border-white/5">
                             <button 
                                 onClick={() => setActiveHistoryTab('image')}
-                                className={`flex-1 flex items-center justify-center gap-2 py-1.5 text-[10px] font-bold rounded-md transition-all ${activeHistoryTab === 'image' ? 'bg-white/10 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'}`}
+                                className={`flex-1 flex items-center justify-center gap-2 py-1.5 text-[10px] font-bold rounded-md transition-all ${activeHistoryTab === 'image' ? 'bg-white/10 text-white' : 'text-slate-500 hover:text-slate-300'}`}
                             >
                                 <ImageIcon size={12} /> 图片
                             </button>
                             <button 
                                 onClick={() => setActiveHistoryTab('video')}
-                                className={`flex-1 flex items-center justify-center gap-2 py-1.5 text-[10px] font-bold rounded-md transition-all ${activeHistoryTab === 'video' ? 'bg-white/10 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'}`}
+                                className={`flex-1 flex items-center justify-center gap-2 py-1.5 text-[10px] font-bold rounded-md transition-all ${activeHistoryTab === 'video' ? 'bg-white/10 text-white' : 'text-slate-500 hover:text-slate-300'}`}
                             >
                                 <VideoIcon size={12} /> 视频
                             </button>
@@ -187,7 +187,7 @@ export const SidebarDock: React.FC<SidebarDockProps> = ({
                                 {filteredAssets.map(a => (
                                     <div 
                                         key={a.id} 
-                                        className="aspect-square rounded-xl overflow-hidden cursor-grab active:cursor-grabbing border border-white/5 hover:border-cyan-500/50 transition-colors group relative shadow-md bg-black/20"
+                                        className="aspect-square rounded-lg overflow-hidden cursor-grab active:cursor-grabbing border border-white/5 hover:border-[rgba(57,230,163,0.45)] transition-colors group relative bg-[#0b0c0d]"
                                         draggable={true}
                                         onDragStart={(e) => {
                                             e.dataTransfer.setData('application/json', JSON.stringify(a));
@@ -205,10 +205,10 @@ export const SidebarDock: React.FC<SidebarDockProps> = ({
                                         ) : (
                                             <video src={a.src} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" draggable={false} />
                                         )}
-                                        <div className="absolute top-1 right-1 px-1.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-[8px] font-bold text-white/70">
+                                        <div className="absolute top-1 right-1 px-1.5 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-[8px] font-bold text-white/70">
                                             {a.type.includes('image') ? 'IMG' : 'MOV'}
                                         </div>
-                                        <div className="absolute bottom-0 left-0 w-full p-1.5 bg-gradient-to-t from-black/80 to-transparent text-[9px] text-white/90 truncate font-medium">
+                                        <div className="absolute bottom-0 left-0 w-full p-1.5 bg-gradient-to-t from-black/85 to-transparent text-[9px] text-white/90 truncate font-medium">
                                             {a.title || 'Untitled'}
                                         </div>
                                     </div>
@@ -223,11 +223,11 @@ export const SidebarDock: React.FC<SidebarDockProps> = ({
         if (activePanel === 'workflow') {
             return (
                 <>
-                    <div className="p-4 border-b border-white/5 flex justify-between items-center bg-white/5">
+                        <div className="p-4 border-b border-white/5 flex justify-between items-center bg-white/[0.03]">
                         <span className="text-xs font-bold uppercase tracking-widest text-white/50">
                             我的工作流
                         </span>
-                        <button onClick={onNewWorkflow} className="p-1.5 bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500 hover:text-white rounded-md transition-colors" title="新建空工作流">
+                        <button onClick={onNewWorkflow} className="p-1.5 bg-[rgba(57,230,163,0.16)] text-[rgba(57,230,163,0.95)] hover:bg-[rgba(57,230,163,0.9)] hover:text-black rounded-md transition-colors" title="新建空工作流">
                             <Plus size={14} />
                         </button>
                     </div>
@@ -242,8 +242,8 @@ export const SidebarDock: React.FC<SidebarDockProps> = ({
                                 <div 
                                     key={wf.id} 
                                     className={`
-                                        relative p-2 rounded-xl border bg-black/20 group transition-all duration-300 cursor-grab active:cursor-grabbing hover:bg-white/5
-                                        ${selectedWorkflowId === wf.id ? 'border-cyan-500/50 ring-1 ring-cyan-500/20' : 'border-white/5 hover:border-white/20'}
+                                        relative p-2 rounded-lg border bg-[#0b0c0d] group transition-all duration-300 cursor-grab active:cursor-grabbing hover:bg-white/5
+                                        ${selectedWorkflowId === wf.id ? 'border-[rgba(57,230,163,0.45)] ring-1 ring-[rgba(57,230,163,0.16)]' : 'border-white/5 hover:border-white/20'}
                                     `}
                                     draggable={true}
                                     onDragStart={(e) => {
@@ -270,7 +270,7 @@ export const SidebarDock: React.FC<SidebarDockProps> = ({
                                     <div className="flex items-center justify-between px-1">
                                         {editingWorkflowId === wf.id ? (
                                             <input 
-                                                className="bg-black/50 border border-cyan-500/50 rounded px-1 text-xs text-white w-full outline-none"
+                                                className="bg-black/50 border border-[rgba(57,230,163,0.45)] rounded px-1 text-xs text-white w-full outline-none"
                                                 defaultValue={wf.title}
                                                 autoFocus
                                                 onBlur={(e) => { onRenameWorkflow(wf.id, e.target.value); setEditingWorkflowId(null); }}
@@ -305,9 +305,9 @@ export const SidebarDock: React.FC<SidebarDockProps> = ({
                             <button
                                 key={t}
                                 onClick={(e) => { e.stopPropagation(); onAddNode(t); setActivePanel(null); }}
-                                className="w-full text-left p-3 rounded-xl bg-white/5 hover:bg-white/10 flex items-center gap-3 text-sm text-slate-200 transition-colors border border-transparent hover:border-white/5 hover:shadow-lg"
+                        className="w-full text-left p-3 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] flex items-center gap-3 text-sm text-slate-200 transition-colors border border-white/5 hover:border-[rgba(57,230,163,0.2)]"
                             >
-                                <div className="p-2 bg-white/10 rounded-lg text-cyan-200 shadow-inner">
+                                <div className="p-2 bg-white/[0.08] rounded-md text-[rgba(57,230,163,0.92)]">
                                     <ItemIcon size={16} />
                                 </div>
                                 <div className="flex flex-col">
@@ -325,11 +325,11 @@ export const SidebarDock: React.FC<SidebarDockProps> = ({
         <>
             {/* Left Vertical Dock */}
             <div
-                className="fixed left-6 top-1/2 -translate-y-1/2 flex flex-col items-center gap-3 p-2 bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1),0_8px_32px_0_rgba(0,0,0,0.37)] z-50 animate-in slide-in-from-left-10 duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] overflow-hidden"
+                className="fixed left-6 top-1/2 -translate-y-1/2 flex flex-col items-center gap-3 p-2 bg-[#090a0b]/94 backdrop-blur-2xl border border-[rgba(222,230,235,0.12)] rounded-lg z-50 animate-in slide-in-from-left-10 duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] overflow-hidden"
                 onMouseLeave={handleSidebarLeave}
             >
                 {/* Glass shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.03] to-transparent pointer-events-none" />
                 {[
                     { id: 'add', icon: Plus },
                     { id: 'workflow', icon: FolderHeart },
@@ -345,13 +345,13 @@ export const SidebarDock: React.FC<SidebarDockProps> = ({
                         <button 
                             onMouseEnter={() => handleSidebarHover(item.id)}
                             onClick={() => item.action ? item.action() : setActivePanel(item.id as any)}
-                            className={`relative group w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 ${activePanel === item.id || item.active ? 'bg-white text-black shadow-lg' : 'hover:bg-white/10 text-slate-300 hover:text-white'}`}
+                        className={`relative group w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 ${activePanel === item.id || item.active ? 'bg-[rgba(57,230,163,0.92)] text-black' : 'hover:bg-white/10 text-slate-300 hover:text-white'}`}
                         >
                             <item.icon size={20} strokeWidth={2} />
                         </button>
                         {/* Tooltip for Sidebar Icons */}
                         {(item.id === 'character_library' || item.id === 'debug') && (
-                            <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2 py-1 bg-black/80 backdrop-blur-md rounded border border-white/10 text-[10px] text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                            <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-2 py-1 bg-black/85 backdrop-blur-md rounded-md border border-white/10 text-[10px] text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
                                 {item.tooltip || (item.id === 'debug' ? 'API日志调试' : '角色库')}
                             </div>
                         )}
@@ -363,7 +363,7 @@ export const SidebarDock: React.FC<SidebarDockProps> = ({
                 
                 <button 
                     onClick={onOpenSettings}
-                    className="relative group w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 hover:bg-white/10 text-slate-300 hover:text-white"
+                className="relative group w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-white/10 text-slate-300 hover:text-white"
                 >
                     <Settings size={20} strokeWidth={2} />
                 </button>
@@ -372,21 +372,21 @@ export const SidebarDock: React.FC<SidebarDockProps> = ({
 
             {/* Slide-out Panels */}
             <div
-                className={`fixed left-24 top-1/2 -translate-y-1/2 max-h-[75vh] w-72 bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-3xl border border-white/20 rounded-2xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1),0_8px_32px_0_rgba(0,0,0,0.37)] transition-all duration-500 ease-[${SPRING}] z-[60] flex flex-col overflow-hidden ${activePanel ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0 pointer-events-none scale-95'}`}
+                className={`fixed left-24 top-1/2 -translate-y-1/2 max-h-[75vh] w-72 bg-[#090a0b]/95 backdrop-blur-3xl border border-[rgba(222,230,235,0.12)] rounded-lg transition-all duration-500 ease-[${SPRING}] z-[60] flex flex-col overflow-hidden ${activePanel ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0 pointer-events-none scale-95'}`}
                 onMouseEnter={handlePanelEnter}
                 onMouseLeave={handlePanelLeaveGuarded}
                 onMouseDown={(e) => e.stopPropagation()}
                 onWheel={(e) => e.stopPropagation()}
             >
                 {/* Glass shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.03] to-transparent pointer-events-none" />
                 {activePanel && renderPanelContent()}
             </div>
 
             {/* Global Context Menu (Rendered outside the transformed panel to fix positioning) */}
             {contextMenu && (
                 <div 
-                    className="fixed z-[100] bg-[#2c2c2e] border border-white/10 rounded-lg shadow-2xl p-1 animate-in fade-in zoom-in-95 duration-200 min-w-[120px]"
+                    className="fixed z-[100] bg-[#0d0f11] border border-[rgba(222,230,235,0.12)] rounded-lg p-1 animate-in fade-in zoom-in-95 duration-200 min-w-[120px]"
                     style={{ top: contextMenu.y, left: contextMenu.x }}
                     onMouseDown={e => e.stopPropagation()}
                     onMouseLeave={() => setContextMenu(null)}

@@ -1,1 +1,72 @@
 @import "tailwindcss";
+
+:root {
+  --aiyou-canvas: #020303;
+  --aiyou-surface: #08090a;
+  --aiyou-surface-raised: #0d0f11;
+  --aiyou-surface-soft: rgba(13, 15, 17, 0.72);
+  --aiyou-hairline: rgba(222, 230, 235, 0.11);
+  --aiyou-hairline-strong: rgba(222, 230, 235, 0.2);
+  --aiyou-ink: #f5f7f7;
+  --aiyou-muted: #8d969c;
+  --aiyou-accent: #39e6a3;
+  --aiyou-accent-soft: rgba(57, 230, 163, 0.14);
+  --aiyou-warm: #f0c36a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--aiyou-canvas);
+  color: var(--aiyou-ink);
+  letter-spacing: 0;
+}
+
+.aiyou-canvas {
+  background-color: var(--aiyou-canvas);
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0) 22%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: auto, 64px 64px, 64px 64px;
+}
+
+.aiyou-surface {
+  background: rgba(8, 9, 10, 0.92);
+  border: 1px solid var(--aiyou-hairline);
+  box-shadow: none;
+}
+
+.aiyou-panel {
+  background: rgba(8, 9, 10, 0.94);
+  border: 1px solid var(--aiyou-hairline);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+}
+
+.aiyou-button {
+  border: 1px solid var(--aiyou-hairline);
+  background: rgba(255, 255, 255, 0.045);
+  color: #cfd6da;
+}
+
+.aiyou-button:hover {
+  border-color: var(--aiyou-hairline-strong);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.aiyou-button-active {
+  border-color: rgba(57, 230, 163, 0.36);
+  background: var(--aiyou-accent-soft);
+  color: #dbfff0;
+}
+
+.aiyou-meta-label {
+  color: var(--aiyou-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}

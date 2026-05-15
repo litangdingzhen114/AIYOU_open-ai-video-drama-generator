@@ -241,31 +241,25 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center">
       <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/72 backdrop-blur-sm"
         onClick={onClose}
       />
 
-      <div className="relative w-full max-w-4xl mx-4 bg-[#1c1c1e] rounded-3xl border border-white/10 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-300 flex flex-col max-h-[90vh]">
-        {/* 装饰性背景 */}
-        <div className="absolute inset-0 opacity-5 pointer-events-none">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-cyan-500 rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500 rounded-full blur-[120px]" />
-        </div>
-
+      <div className="relative w-full max-w-4xl mx-4 bg-[#08090a] rounded-lg border border-[rgba(222,230,235,0.12)] overflow-hidden animate-in fade-in zoom-in-95 duration-300 flex flex-col max-h-[90vh]">
         {/* 标题栏 */}
-        <div className="relative flex items-center justify-between px-6 py-4 border-b border-white/5 bg-white/5">
+        <div className="relative flex items-center justify-between px-6 py-4 border-b border-white/10 bg-white/[0.03]">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-xl">
-              <Key size={20} className="text-cyan-400" />
+            <div className="p-2 bg-white/[0.06] rounded-lg border border-white/[0.08]">
+              <Key size={20} className="text-[rgba(57,230,163,0.95)]" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-white">设置 (Settings)</h2>
+              <h2 className="text-lg font-semibold text-white">设置 (Settings)</h2>
               <p className="text-[10px] text-slate-400 mt-0.5">API Key & 模型配置</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-xl transition-all"
+            className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-all"
             aria-label="关闭设置"
           >
             <X size={20} />
@@ -275,11 +269,11 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
         {/* Tabs */}
         <div className="relative flex border-b border-white/10">
           {[
-            { key: 'basic' as const, label: '基础设置', activeColor: 'text-cyan-400 border-cyan-400' },
-            { key: 'models' as const, label: '默认模型', activeColor: 'text-cyan-400 border-cyan-400' },
-            { key: 'providers' as const, label: '视频提供商', activeColor: 'text-violet-400 border-violet-400' },
-            { key: 'sora' as const, label: 'Sora 2', activeColor: 'text-green-400 border-green-400' },
-            { key: 'storage' as const, label: '存储设置', activeColor: 'text-cyan-400 border-cyan-400' },
+            { key: 'basic' as const, label: '基础设置', activeColor: 'text-[rgba(57,230,163,0.95)] border-[rgba(57,230,163,0.95)]' },
+            { key: 'models' as const, label: '默认模型', activeColor: 'text-[rgba(57,230,163,0.95)] border-[rgba(57,230,163,0.95)]' },
+            { key: 'providers' as const, label: '视频提供商', activeColor: 'text-[rgba(57,230,163,0.95)] border-[rgba(57,230,163,0.95)]' },
+            { key: 'sora' as const, label: 'Sora 2', activeColor: 'text-[rgba(57,230,163,0.95)] border-[rgba(57,230,163,0.95)]' },
+            { key: 'storage' as const, label: '存储设置', activeColor: 'text-[rgba(57,230,163,0.95)] border-[rgba(57,230,163,0.95)]' },
           ].map(tab => (
             <button
               key={tab.key}
@@ -312,9 +306,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
                       setValidationStatus('idle');
                       setErrorMessage('');
                     }}
-                    className={`p-4 rounded-xl border-2 transition-all ${
+                    className={`p-4 rounded-lg border transition-all ${
                       llmProvider === 'gemini'
-                        ? 'border-cyan-500 bg-cyan-500/10'
+                        ? 'border-[rgba(57,230,163,0.45)] bg-[rgba(57,230,163,0.1)]'
                         : 'border-white/10 hover:border-white/20'
                     }`}
                   >
@@ -328,9 +322,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
                       setValidationStatus('idle');
                       setErrorMessage('');
                     }}
-                    className={`p-4 rounded-xl border-2 transition-all ${
+                    className={`p-4 rounded-lg border transition-all ${
                       llmProvider === 'yunwu'
-                        ? 'border-purple-500 bg-purple-500/10'
+                        ? 'border-[rgba(57,230,163,0.45)] bg-[rgba(57,230,163,0.1)]'
                         : 'border-white/10 hover:border-white/20'
                     }`}
                   >
@@ -344,9 +338,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
                       setValidationStatus('idle');
                       setErrorMessage('');
                     }}
-                    className={`p-4 rounded-xl border-2 transition-all ${
+                    className={`p-4 rounded-lg border transition-all ${
                       llmProvider === 'custom'
-                        ? 'border-orange-500 bg-orange-500/10'
+                        ? 'border-[rgba(240,195,106,0.45)] bg-[rgba(240,195,106,0.1)]'
                         : 'border-white/10 hover:border-white/20'
                     }`}
                   >
@@ -377,7 +371,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
                           setErrorMessage('');
                         }}
                         placeholder="AIzaSy..."
-                        className="w-full px-4 py-3 pr-12 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 focus:bg-white/10 transition-all font-mono text-sm"
+                        className="w-full px-4 py-3 pr-12 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-[rgba(57,230,163,0.45)] focus:bg-white/10 transition-all font-mono text-sm"
                       />
                       <button
                         onClick={() => setShowApiKey(!showApiKey)}
@@ -388,7 +382,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
                       </button>
                     </div>
                     <div className="text-xs text-slate-400 space-y-1">
-                      <p>• 访问 <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Google AI Studio</a> 获取免费 API Key</p>
+                      <p>• 访问 <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" className="text-[rgba(57,230,163,0.95)] hover:underline">Google AI Studio</a> 获取免费 API Key</p>
                       <p>• API Key 将安全地存储在您的浏览器本地,不会上传到任何服务器</p>
                     </div>
                   </>
@@ -406,7 +400,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
                           setErrorMessage('');
                         }}
                         placeholder="输入云雾 API Key"
-                        className="w-full px-4 py-3 pr-12 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all font-mono text-sm"
+                        className="w-full px-4 py-3 pr-12 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-[rgba(57,230,163,0.45)] focus:bg-white/10 transition-all font-mono text-sm"
                       />
                       <button
                         onClick={() => setShowYunwuLlmApiKey(!showYunwuLlmApiKey)}
@@ -426,7 +420,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
                             setYunwuDefaultModel(e.target.value);
                             localStorage.setItem('YUNWU_DEFAULT_MODEL', e.target.value);
                           }}
-                          className="flex-1 px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all appearance-none cursor-pointer"
+                          className="flex-1 px-3 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-[rgba(57,230,163,0.45)] focus:bg-white/10 transition-all appearance-none cursor-pointer"
                         >
                           {yunwuModels.length === 0 && (
                             <option value="" className="bg-[#1a1a2e]">点击右侧按钮获取模型列表</option>
@@ -451,7 +445,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
                     </div>
 
                     <div className="text-xs text-slate-400 space-y-1">
-                      <p>• 访问 <a href="https://yunwu.ai" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:underline">云雾官网</a> 获取 API Key</p>
+                      <p>• 访问 <a href="https://yunwu.ai" target="_blank" rel="noopener noreferrer" className="text-[rgba(57,230,163,0.95)] hover:underline">云雾官网</a> 获取 API Key</p>
                       <p>• API Key 将安全地存储在您的浏览器本地,不会上传到任何服务器</p>
                     </div>
                   </>
@@ -521,8 +515,8 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
               </div>
 
               {/* 自动降级说明 */}
-              <div className="p-4 bg-cyan-500/10 border border-cyan-500/20 rounded-xl space-y-2">
-                <div className="flex items-center gap-2 text-cyan-400">
+              <div className="p-4 bg-white/[0.04] border border-white/10 rounded-lg space-y-2">
+                <div className="flex items-center gap-2 text-[rgba(57,230,163,0.95)]">
                   <RefreshCw size={14} />
                   <span className="text-xs font-bold">智能模型降级</span>
                 </div>
@@ -551,7 +545,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
           <div className="relative flex items-center justify-between px-6 py-4 border-t border-white/5 bg-[#121214]">
             <button
               onClick={handleClearApiKey}
-              className="px-4 py-2 text-sm text-slate-400 hover:text-white hover:bg-white/10 rounded-xl transition-all"
+              className="px-4 py-2 text-sm text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-all"
               disabled={
                 (llmProvider === 'gemini' && !apiKey) ||
                 (llmProvider === 'yunwu' && !yunwuLlmApiKey) ||
@@ -564,14 +558,14 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
             <div className="flex items-center gap-3">
               <button
                 onClick={onClose}
-                className="px-6 py-2.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-xl transition-all"
+                className="px-6 py-2.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-all"
               >
                 取消
               </button>
               <button
                 onClick={handleSaveApiKey}
                 disabled={isValidating || (!apiKey.trim() && llmProvider === 'gemini') || (!yunwuLlmApiKey.trim() && llmProvider === 'yunwu') || ((!customApiUrl.trim() || !customApiKey.trim()) && llmProvider === 'custom')}
-                className="px-6 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 rounded-xl shadow-lg hover:shadow-cyan-500/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-6 py-2.5 text-sm font-medium text-black bg-[rgba(57,230,163,0.92)] hover:bg-[rgba(86,245,184,0.96)] rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 {isValidating ? (
                   <>

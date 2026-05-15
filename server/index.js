@@ -2281,13 +2281,13 @@ const getDefaultConfig = () => ({
           id: 'volcengine-model',
           platformId: 'yunwuapi-platform',
           code: 'volcengine',
-          name: '火山引擎',
-          description: '字节跳动火山引擎视频生成',
+          name: 'Seedance / 火山引擎',
+          description: '字节跳动 Seedance / 火山引擎视频生成',
           enabled: true,
           useUnifiedEndpoint: true,
           checkEndpoint: '/volcengine/status',
           subModels: [
-            { id: 'volc-video-01', modelId: 'volcengine-model', code: 'volc-video-01', name: 'Volc Video 01', description: '标准模型', enabled: true, default: true }
+            { id: 'volc-video-01', modelId: 'volcengine-model', code: 'volc-video-01', name: 'Seedance 2.0', description: '标准模型', enabled: true, default: true }
           ],
           defaultSubModel: 'volc-video-01',
           supportsImageRef: true,

@@ -16,7 +16,7 @@ export type VideoModelType =
   | 'luma'          // Luma Dream Machine
   | 'runway'        // Runway Gen-3
   | 'minimax'       // 海螺
-  | 'volcengine'    // 豆包
+  | 'volcengine'    // Seedance / 豆包
   | 'grok'          // Grok
   | 'qwen'          // 通义万象
   | 'sora';         // Sora

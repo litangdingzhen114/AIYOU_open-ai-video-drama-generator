@@ -679,7 +679,7 @@ export const BottomPanel: React.FC<BottomPanelContext> = (ctx) => {
                                  luma: 'Luma Dream Machine',
                                  runway: 'Runway Gen-3',
                                  minimax: '海螺',
-                                 volcengine: '豆包',
+                                 volcengine: 'Seedance / 豆包',
                                  grok: 'Grok',
                                  qwen: '通义万象',
                                  sora: 'Sora'
@@ -721,8 +721,9 @@ export const BottomPanel: React.FC<BottomPanelContext> = (ctx) => {
                                 'gen3-alpha-extreme': 'Gen-3 Alpha Extreme',
                                 'video-01': 'Video-01',
                                 'video-01-live': 'Video-01 Live',
-                                'doubao-video-1': 'Doubao Video 1',
-                                'doubao-video-pro': 'Doubao Video Pro',
+                                'doubao-video-1': 'Seedance 2.0',
+                                'doubao-video-pro': 'Seedance 2.0 Pro',
+                                'volc-video-01': 'Seedance 2.0',
                                 'grok-2-video': 'Grok 2 Video',
                                 'grok-vision-video': 'Grok Vision Video',
                                 'qwen-video': 'Qwen Video',
@@ -736,9 +737,15 @@ export const BottomPanel: React.FC<BottomPanelContext> = (ctx) => {
                                ? dynamicSubModels[selectedPlatform]
                                : defaultSubModels;
 
+                             const seedanceDisplayNames: Record<string, string> = {
+                                'doubao-video-1': 'Seedance 2.0',
+                                'doubao-video-pro': 'Seedance 2.0 Pro',
+                                'volc-video-01': 'Seedance 2.0'
+                             };
+
                              const subModelDisplayNames = configLoaded && Object.keys(dynamicSubModelNames).length > 0
-                               ? { ...defaultSubModelDisplayNames, ...dynamicSubModelNames }
-                               : defaultSubModelDisplayNames;
+                               ? { ...defaultSubModelDisplayNames, ...dynamicSubModelNames, ...seedanceDisplayNames }
+                               : { ...defaultSubModelDisplayNames, ...seedanceDisplayNames };
 
                              const selectedSubModel = data.subModel || (subModels[selectedModel]?.[0] || selectedModel);
 
@@ -770,8 +777,8 @@ export const BottomPanel: React.FC<BottomPanelContext> = (ctx) => {
                                          </div>
 
                                          {/* 快速模型显示 */}
-                                         <div className="flex items-center gap-2 px-2 py-1.5 bg-black/40 rounded-lg border border-white/10">
-                                             <Sparkles size={10} className="text-purple-400" />
+                                         <div className="flex items-center gap-2 px-2 py-1.5 bg-black/45 rounded-lg border border-white/10">
+                                             <Sparkles size={10} className="text-[rgba(57,230,163,0.95)]" />
                                              <span className="text-[9px] text-slate-300">{modelNames[selectedModel]}</span>
                                              {selectedSubModel && selectedSubModel !== selectedModel && (
                                                  <>
@@ -855,7 +862,7 @@ export const BottomPanel: React.FC<BottomPanelContext> = (ctx) => {
                                                          }}
                                                          className={`flex-1 px-2 py-1 rounded-lg text-[9px] font-bold transition-all ${
                                                              modelConfig.aspect_ratio === ratio
-                                                                 ? 'bg-purple-500 text-white'
+                                                                 ? 'bg-[rgba(57,230,163,0.92)] text-black'
                                                                  : 'bg-black/60 text-slate-400 hover:bg-white/5'
                                                          }`}
                                                          onMouseDown={(e) => e.stopPropagation()}
@@ -876,7 +883,7 @@ export const BottomPanel: React.FC<BottomPanelContext> = (ctx) => {
                                                          }}
                                                          className={`flex-1 px-2 py-1 rounded-lg text-[9px] font-bold transition-all ${
                                                              modelConfig.duration === duration
-                                                                 ? 'bg-purple-500 text-white'
+                                                                 ? 'bg-[rgba(57,230,163,0.92)] text-black'
                                                                  : 'bg-black/60 text-slate-400 hover:bg-white/5'
                                                          }`}
                                                          onMouseDown={(e) => e.stopPropagation()}
@@ -900,7 +907,7 @@ export const BottomPanel: React.FC<BottomPanelContext> = (ctx) => {
                                                      }}
                                                      className={`flex-1 px-2 py-1 rounded-lg text-[9px] font-bold transition-all ${
                                                          modelConfig.quality === quality
-                                                             ? 'bg-purple-500 text-white'
+                                                             ? 'bg-[rgba(57,230,163,0.92)] text-black'
                                                              : 'bg-black/60 text-slate-400 hover:bg-white/5'
                                                      }`}
                                                      onMouseDown={(e) => e.stopPropagation()}
@@ -942,9 +949,9 @@ export const BottomPanel: React.FC<BottomPanelContext> = (ctx) => {
                                             disabled={isLoading}
                                             className={`flex-[2] flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
                                                 hasError 
-                                                    ? 'bg-gradient-to-r from-red-500 to-orange-500 hover:shadow-lg hover:shadow-red-500/20' 
-                                                    : 'bg-gradient-to-r from-purple-500 to-pink-500 hover:shadow-lg hover:shadow-purple-500/20'
-                                            } text-white hover:scale-[1.02]`}
+                                                    ? 'bg-red-500 hover:bg-red-400 text-white' 
+                                                    : 'bg-[rgba(57,230,163,0.92)] hover:bg-[rgba(86,245,184,0.96)] text-black'
+                                            } hover:scale-[1.02]`}
                                             onMouseDown={(e) => e.stopPropagation()}
                                         >
                                             {isLoading ? <Loader2 className="animate-spin" size={14} /> : hasError ? <RefreshCw size={14} /> : <Play size={14} />}
@@ -2037,13 +2044,13 @@ export const BottomPanel: React.FC<BottomPanelContext> = (ctx) => {
                         {/* ... */}
                         <div className="flex items-center gap-2">
                             <div className="relative group/model">
-                                <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-white/5 cursor-pointer transition-colors text-[10px] font-bold text-slate-400 hover:text-cyan-400"><span>{models.find(m => m.v === node.data.model)?.l || 'AI Model'}</span><ChevronDown size={10} /></div>
-                                <div className="absolute bottom-full left-0 pb-2 w-40 opacity-0 translate-y-2 pointer-events-none group-hover/model:opacity-100 group-hover/model:translate-y-0 group-hover/model:pointer-events-auto transition-all duration-200 z-[200]"><div className="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-xl overflow-hidden">{models.map(m => (<div key={m.v} onClick={() => onUpdate(node.id, { model: m.v })} className={`px-3 py-2 text-[10px] font-bold cursor-pointer hover:bg-white/10 ${node.data.model === m.v ? 'text-cyan-400 bg-white/5' : 'text-slate-400'}`}>{m.l}</div>))}</div></div>
+                                <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-white/5 cursor-pointer transition-colors text-[10px] font-bold text-slate-400 hover:text-[rgba(57,230,163,0.95)]"><span>{models.find(m => m.v === node.data.model)?.l || 'AI Model'}</span><ChevronDown size={10} /></div>
+                                <div className="absolute bottom-full left-0 pb-2 w-40 opacity-0 translate-y-2 pointer-events-none group-hover/model:opacity-100 group-hover/model:translate-y-0 group-hover/model:pointer-events-auto transition-all duration-200 z-[200]"><div className="bg-[#0d0f11] border border-white/10 rounded-lg overflow-hidden">{models.map(m => (<div key={m.v} onClick={() => onUpdate(node.id, { model: m.v })} className={`px-3 py-2 text-[10px] font-bold cursor-pointer hover:bg-white/10 ${node.data.model === m.v ? 'text-[rgba(57,230,163,0.95)] bg-white/5' : 'text-slate-400'}`}>{m.l}</div>))}</div></div>
                             </div>
                             {/* ... Ratios ... */}
-                            {node.type !== NodeType.VIDEO_ANALYZER && node.type !== NodeType.AUDIO_GENERATOR && (<div className="relative group/ratio"><div className="flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-white/5 cursor-pointer transition-colors text-[10px] font-bold text-slate-400 hover:text-cyan-400"><Scaling size={12} /><span>{node.data.aspectRatio || '16:9'}</span></div><div className="absolute bottom-full left-0 pb-2 w-20 opacity-0 translate-y-2 pointer-events-none group-hover/ratio:opacity-100 group-hover/ratio:translate-y-0 group-hover/ratio:pointer-events-auto transition-all duration-200 z-[200]"><div className="bg-[#1c1c1e] border border-white/10 rounded-xl shadow-xl overflow-hidden">{(node.type.includes('VIDEO') ? VIDEO_ASPECT_RATIOS : IMAGE_ASPECT_RATIOS).map(r => (<div key={r} onClick={() => handleAspectRatioSelect(r)} className={`px-3 py-2 text-[10px] font-bold cursor-pointer hover:bg-white/10 ${node.data.aspectRatio === r ? 'text-cyan-400 bg-white/5' : 'text-slate-400'}`}>{r}</div>))}</div></div></div>)}
+                            {node.type !== NodeType.VIDEO_ANALYZER && node.type !== NodeType.AUDIO_GENERATOR && (<div className="relative group/ratio"><div className="flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-white/5 cursor-pointer transition-colors text-[10px] font-bold text-slate-400 hover:text-[rgba(57,230,163,0.95)]"><Scaling size={12} /><span>{node.data.aspectRatio || '16:9'}</span></div><div className="absolute bottom-full left-0 pb-2 w-20 opacity-0 translate-y-2 pointer-events-none group-hover/ratio:opacity-100 group-hover/ratio:translate-y-0 group-hover/ratio:pointer-events-auto transition-all duration-200 z-[200]"><div className="bg-[#0d0f11] border border-white/10 rounded-lg overflow-hidden">{(node.type.includes('VIDEO') ? VIDEO_ASPECT_RATIOS : IMAGE_ASPECT_RATIOS).map(r => (<div key={r} onClick={() => handleAspectRatioSelect(r)} className={`px-3 py-2 text-[10px] font-bold cursor-pointer hover:bg-white/10 ${node.data.aspectRatio === r ? 'text-[rgba(57,230,163,0.95)] bg-white/5' : 'text-slate-400'}`}>{r}</div>))}</div></div></div>)}
                         </div>
-                        <button onClick={handleActionClick} disabled={isActionDisabled} className={`relative flex items-center gap-2 px-4 py-1.5 rounded-[12px] font-bold text-[10px] tracking-wide transition-all duration-300 ${isWorking ? 'bg-white/5 text-slate-500 cursor-not-allowed' : 'bg-gradient-to-r from-cyan-500 to-blue-500 text-black hover:shadow-lg hover:shadow-cyan-500/20 hover:scale-105 active:scale-95'}`}>{isWorking ? <Loader2 className="animate-spin" size={12} /> : <Wand2 size={12} />}<span>{isWorking ? '生成中...' : '生成'}</span></button>
+                        <button onClick={handleActionClick} disabled={isActionDisabled} className={`relative flex items-center gap-2 px-4 py-1.5 rounded-lg font-bold text-[10px] tracking-wide transition-all duration-300 ${isWorking ? 'bg-white/5 text-slate-500 cursor-not-allowed' : 'bg-[rgba(57,230,163,0.92)] text-black hover:bg-[rgba(86,245,184,0.96)] hover:scale-105 active:scale-95'}`}>{isWorking ? <Loader2 className="animate-spin" size={12} /> : <Wand2 size={12} />}<span>{isWorking ? '生成中...' : '生成'}</span></button>
                     </div>
                     </>
                 )}

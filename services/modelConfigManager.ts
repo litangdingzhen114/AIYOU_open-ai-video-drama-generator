@@ -178,14 +178,14 @@ const DEFAULT_CONFIG: ModelConfiguration = {
         {
           id: 'model-volcengine',
           code: 'volcengine',
-          name: '豆包',
-          description: '火山引擎视频生成模型',
+          name: 'Seedance / 豆包',
+          description: '字节跳动 Seedance / 火山引擎视频生成模型',
           enabled: true,
           useUnifiedEndpoint: true,
           checkEndpoint: '/volcengine/status',
           subModels: [
-            { id: 'sub-doubao-video-1', code: 'doubao-video-1', name: 'Doubao Video 1', enabled: true },
-            { id: 'sub-doubao-video-pro', code: 'doubao-video-pro', name: 'Doubao Video Pro', enabled: true }
+            { id: 'sub-doubao-video-1', code: 'doubao-video-1', name: 'Seedance 2.0', enabled: true },
+            { id: 'sub-doubao-video-pro', code: 'doubao-video-pro', name: 'Seedance 2.0 Pro', enabled: true }
           ],
           defaultSubModel: 'doubao-video-1',
           supportsImageRef: true,

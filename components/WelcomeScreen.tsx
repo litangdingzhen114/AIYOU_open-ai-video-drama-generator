@@ -36,8 +36,8 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = React.memo(({ visible
           aria-hidden="true"
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/45" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(8,15,30,0.05),rgba(0,0,0,0.55))]" />
+        <div className="absolute inset-0 bg-black/35" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.18),rgba(0,0,0,0.72))]" />
       </div>
 
       {/* 标题 */}
@@ -46,32 +46,17 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = React.memo(({ visible
           <img
             src="/logo.png"
             alt="AIYOU Logo"
-            className="h-40 md:h-52 object-contain drop-shadow-2xl"
+            className="h-40 md:h-52 object-contain"
           />
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="h-px w-16 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
-          <span className="text-xl md:text-2xl font-bold tracking-[0.3em] text-white animate-[glow_2s_ease-in-out_infinite]">
+          <div className="h-px w-16 bg-white/25"></div>
+          <span className="text-xl md:text-2xl font-medium text-white">
             {t.welcome}
           </span>
-          <div className="h-px w-16 bg-gradient-to-l from-transparent via-cyan-500/50 to-transparent"></div>
+          <div className="h-px w-16 bg-white/25"></div>
         </div>
-
-        <style>{`
-          @keyframes glow {
-            0%, 100% {
-              text-shadow: 0 0 20px rgba(34, 211, 238, 0.3),
-                           0 0 40px rgba(34, 211, 238, 0.2),
-                           0 0 60px rgba(34, 211, 238, 0.1);
-            }
-            50% {
-              text-shadow: 0 0 30px rgba(34, 211, 238, 0.6),
-                           0 0 60px rgba(34, 211, 238, 0.4),
-                           0 0 90px rgba(34, 211, 238, 0.2);
-            }
-          }
-        `}</style>
       </div>
     </div>
   );

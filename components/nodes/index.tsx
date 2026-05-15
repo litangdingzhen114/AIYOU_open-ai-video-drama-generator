@@ -52,11 +52,11 @@ const NodeInfoTooltip = ({ type }: { type: NodeType }) => {
     >
       <AlertCircle size={11} className="text-slate-500 hover:text-slate-300 cursor-help transition-colors" />
       {show && (
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-6 z-[9999] w-56 p-2.5 bg-[#1c1c1e]/95 backdrop-blur-xl border border-white/15 rounded-lg shadow-2xl pointer-events-none">
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-6 z-[9999] w-56 p-2.5 bg-[#090a0b]/95 backdrop-blur-xl border border-white/15 rounded-lg pointer-events-none">
           <p className="text-[10px] text-slate-300 leading-relaxed mb-1.5">{info.description}</p>
           <div className="border-t border-white/10 pt-1.5 space-y-1">
-            <p className="text-[9px] text-slate-500"><span className="text-cyan-400/80">接入 ←</span> {info.inputs}</p>
-            <p className="text-[9px] text-slate-500"><span className="text-amber-400/80">接出 →</span> {info.outputs}</p>
+            <p className="text-[9px] text-slate-500"><span className="text-[rgba(57,230,163,0.85)]">接入 ←</span> {info.inputs}</p>
+            <p className="text-[9px] text-slate-500"><span className="text-[rgba(240,195,106,0.85)]">接出 →</span> {info.outputs}</p>
           </div>
         </div>
       )}
@@ -621,7 +621,7 @@ const NodeComponent: React.FC<NodeProps> = ({
 
     return (
       <div className="absolute -top-9 left-0 w-full flex items-center justify-between px-2 pointer-events-auto">
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-[#1c1c1e]/90 backdrop-blur-xl border border-white/10 rounded-full shadow-lg">
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-[#090a0b]/92 backdrop-blur-xl border border-white/10 rounded-lg">
           <IconComponent size={12} className={config.color} />
           {isEditingTitle ? (
             <input
@@ -647,7 +647,7 @@ const NodeComponent: React.FC<NodeProps> = ({
           {/* ✅ 缓存指示器 */}
           {node.data.isCached && (
             <div
-              className="flex items-center gap-1 px-2 py-0.5 bg-green-500/20 border border-green-500/30 rounded-full ml-1"
+              className="flex items-center gap-1 px-2 py-0.5 bg-green-500/15 border border-green-500/25 rounded-md ml-1"
               title={`从缓存加载 (${node.data.cacheLocation || 'filesystem'})`}
             >
               <Database className="w-3 h-3 text-green-400" />
@@ -656,11 +656,11 @@ const NodeComponent: React.FC<NodeProps> = ({
           )}
           {node.type === NodeType.VIDEO_GENERATOR && node.data.videoProvider && (
             <div
-              className="flex items-center gap-1 px-2 py-0.5 bg-cyan-500/15 border border-cyan-500/25 rounded-full ml-1"
+              className="flex items-center gap-1 px-2 py-0.5 bg-[rgba(57,230,163,0.12)] border border-[rgba(57,230,163,0.25)] rounded-md ml-1"
               title={`视频由 ${node.data.videoProvider === 'sora2' ? 'Sora 2' : 'Gemini'} 路径生成`}
             >
-              <Layers className="w-3 h-3 text-cyan-400" />
-              <span className="text-[9px] font-medium text-cyan-300">
+              <Layers className="w-3 h-3 text-[rgba(57,230,163,0.95)]" />
+              <span className="text-[9px] font-medium text-[rgba(192,255,226,0.92)]">
                 {node.data.videoProvider === 'sora2' ? 'Sora 2' : 'Gemini'}
               </span>
             </div>
@@ -678,8 +678,8 @@ const NodeComponent: React.FC<NodeProps> = ({
         {node.type === NodeType.VIDEO_GENERATOR && (<VideoModeSelector currentMode={generationMode} onSelect={(mode) => onUpdate(node.id, { generationMode: mode })} />)}
         {(node.data.image || node.data.videoUri || node.data.audioUri) && (
           <div className="flex items-center gap-1">
-            <button onClick={handleDownload} className="p-1.5 bg-black/40 border border-white/10 backdrop-blur-md rounded-md text-slate-400 hover:text-white hover:border-white/30 transition-colors" title="下载"><Download size={14} /></button>
-            {node.type !== NodeType.AUDIO_GENERATOR && node.type !== NodeType.STORYBOARD_IMAGE && <button onClick={handleExpand} className="p-1.5 bg-black/40 border border-white/10 backdrop-blur-md rounded-md text-slate-400 hover:text-white hover:border-white/30 transition-colors" title="全屏预览"><Maximize2 size={14} /></button>}
+            <button onClick={handleDownload} className="p-1.5 bg-black/45 border border-white/10 backdrop-blur-md rounded-md text-slate-400 hover:text-white hover:border-white/30 transition-colors" title="下载"><Download size={14} /></button>
+            {node.type !== NodeType.AUDIO_GENERATOR && node.type !== NodeType.STORYBOARD_IMAGE && <button onClick={handleExpand} className="p-1.5 bg-black/45 border border-white/10 backdrop-blur-md rounded-md text-slate-400 hover:text-white hover:border-white/30 transition-colors" title="全屏预览"><Maximize2 size={14} /></button>}
           </div>
         )}
       </div>
@@ -719,9 +719,9 @@ const NodeComponent: React.FC<NodeProps> = ({
   // 性能优化：memoize容器样式对象，避免每次渲染创建新对象
   const containerStyle = useMemo(() => ({
       left: node.x, top: node.y, width: nodeWidth, height: nodeHeight,
-      background: isSelected ? 'rgba(28, 28, 30, 0.85)' as const : 'rgba(28, 28, 30, 0.6)' as const,
+      background: isSelected ? 'rgba(13, 15, 17, 0.96)' as const : 'rgba(8, 9, 10, 0.88)' as const,
       transition: isInteracting ? 'none' as const : 'all 0.5s cubic-bezier(0.32, 0.72, 0, 1)' as const,
-      backdropFilter: isInteracting ? 'none' as const : 'blur(24px)' as const,
+      backdropFilter: isInteracting ? 'none' as const : 'blur(18px)' as const,
       boxShadow: isInteracting ? 'none' as const : undefined,
       willChange: isInteracting ? 'left, top, width, height' as const : 'auto' as const
   }), [node.x, node.y, nodeWidth, nodeHeight, isSelected, isInteracting]);
@@ -738,7 +738,7 @@ const NodeComponent: React.FC<NodeProps> = ({
   return (
     <div
         data-node-container="true"
-        className={`absolute rounded-[24px] group ${isSelected ? 'ring-1 ring-cyan-500/50 shadow-[0_0_40px_-10px_rgba(34,211,238,0.3)] z-30' : 'ring-1 ring-white/10 hover:ring-white/20 z-10'}`}
+        className={`absolute rounded-lg group ${isSelected ? 'ring-1 ring-[rgba(57,230,163,0.45)] z-30' : 'ring-1 ring-white/10 hover:ring-white/20 z-10'}`}
         style={containerStyle}
         onMouseDown={handleNodeMouseDown}
         onMouseEnter={handleMouseEnter}
@@ -747,9 +747,9 @@ const NodeComponent: React.FC<NodeProps> = ({
     >
         {renderTitleBar()}
         {renderHoverToolbar()}
-        <div className={`absolute -left-3 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border border-white/20 bg-[#1c1c1e] flex items-center justify-center transition-all duration-300 hover:scale-125 cursor-crosshair z-50 shadow-md ${isConnecting ? 'ring-2 ring-cyan-400 animate-pulse' : ''}`} onMouseDown={handleInputPortMouseDown} onMouseUp={handleInputPortMouseUp} title="Input"><Plus size={10} strokeWidth={3} className="text-white/50" /></div>
-        <div className={`absolute -right-3 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border border-white/20 bg-[#1c1c1e] flex items-center justify-center transition-all duration-300 hover:scale-125 cursor-crosshair z-50 shadow-md ${isConnecting ? 'ring-2 ring-purple-400 animate-pulse' : ''}`} onMouseDown={handleOutputPortMouseDown} onMouseUp={handleOutputPortMouseUp} title="Output"><Plus size={10} strokeWidth={3} className="text-white/50" /></div>
-        <div className="w-full h-full flex flex-col relative rounded-[24px] overflow-hidden bg-zinc-900"><div className="flex-1 min-h-0 relative bg-zinc-900"><MediaContent {...contentContext} /></div></div>
+        <div className={`absolute -left-3 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border border-white/20 bg-[#090a0b] flex items-center justify-center transition-all duration-300 hover:scale-125 cursor-crosshair z-50 ${isConnecting ? 'ring-2 ring-[rgba(57,230,163,0.8)]' : ''}`} onMouseDown={handleInputPortMouseDown} onMouseUp={handleInputPortMouseUp} title="Input"><Plus size={10} strokeWidth={3} className="text-white/50" /></div>
+        <div className={`absolute -right-3 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border border-white/20 bg-[#090a0b] flex items-center justify-center transition-all duration-300 hover:scale-125 cursor-crosshair z-50 ${isConnecting ? 'ring-2 ring-[rgba(240,195,106,0.8)]' : ''}`} onMouseDown={handleOutputPortMouseDown} onMouseUp={handleOutputPortMouseUp} title="Output"><Plus size={10} strokeWidth={3} className="text-white/50" /></div>
+        <div className="w-full h-full flex flex-col relative rounded-lg overflow-hidden bg-[#090a0b]"><div className="flex-1 min-h-0 relative bg-[#090a0b]"><MediaContent {...contentContext} /></div></div>
         <BottomPanel {...contentContext} isOpen={false} hasInputs={!!hasInputs} onInputReorder={onInputReorder} nodeWidth={nodeWidth} nodeHeight={nodeHeight} isSelected={isSelected} />
         <div className="absolute -bottom-3 -right-3 w-6 h-6 flex items-center justify-center cursor-nwse-resize text-slate-500 hover:text-white transition-colors opacity-0 group-hover:opacity-100 z-50" onMouseDown={handleResizeMouseDown}><div className="w-1.5 h-1.5 rounded-full bg-current" /></div>
     </div>

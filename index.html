@@ -17,12 +17,15 @@
       }
 
       body {
-        background-color: #020202;
+        background-color: #020303;
         background-image:
-          radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.03), transparent 40%),
-          radial-gradient(circle at 50% 100%, rgba(34, 211, 238, 0.02), transparent 40%);
+          linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0) 22%),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: auto, 64px 64px, 64px 64px;
         color: #f5f5f7;
         font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Inter", sans-serif;
+        letter-spacing: 0;
         overflow: hidden;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -42,11 +45,11 @@
         background: transparent;
       }
       .custom-scrollbar::-webkit-scrollbar-thumb {
-        background-color: rgba(255, 255, 255, 0.15);
+        background-color: rgba(222, 230, 235, 0.16);
         border-radius: 100px;
       }
       .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background-color: rgba(255, 255, 255, 0.3);
+        background-color: rgba(222, 230, 235, 0.28);
       }
 
       .noise-bg {
@@ -60,7 +63,7 @@
 
       .font-display {
         font-family: "SF Pro Display", "Inter", sans-serif;
-        letter-spacing: -0.02em;
+        letter-spacing: 0;
       }
 
       @keyframes border-glow {

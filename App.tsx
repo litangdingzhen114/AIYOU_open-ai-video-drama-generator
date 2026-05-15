@@ -1488,17 +1488,17 @@ export const App = () => {
   }, []);
 
   return (
-    <div className="w-screen h-screen overflow-hidden bg-[#0a0a0c]">
+    <div className="w-screen h-screen overflow-hidden aiyou-canvas bg-[#020303]">
       <div
           ref={canvasRef}
-          className={`w-full h-full overflow-hidden text-slate-200 selection:bg-cyan-500/30 ${canvas.isDraggingCanvas ? 'cursor-grabbing' : 'cursor-default'}`}
+          className={`w-full h-full overflow-hidden text-slate-200 selection:bg-[rgba(57,230,163,0.22)] ${canvas.isDraggingCanvas ? 'cursor-grabbing' : 'cursor-default'}`}
           onMouseDown={handleCanvasMouseDown}
           onDoubleClick={(e) => { e.preventDefault(); if (e.detail > 1 && !selectionRect) { setContextMenu({ visible: true, x: e.clientX, y: e.clientY, id: '' }); setContextMenuTarget({ type: 'create' }); } }}
           onContextMenu={(e) => { e.preventDefault(); if(e.target === e.currentTarget) setContextMenu(null); }}
           onDragOver={handleCanvasDragOver} onDrop={handleCanvasDrop}
       >
-          <div className="absolute inset-0 noise-bg" />
-          <div ref={canvas.gridBgRef} className="absolute inset-0 pointer-events-none opacity-[0.06]" style={{ backgroundImage: 'radial-gradient(circle, #aaa 1px, transparent 1px)', backgroundSize: `${32 * canvas.scale}px ${32 * canvas.scale}px`, backgroundPosition: `${canvas.pan.x}px ${canvas.pan.y}px` }} />
+          <div className="absolute inset-0 noise-bg opacity-70" />
+          <div ref={canvas.gridBgRef} className="absolute inset-0 pointer-events-none opacity-[0.09]" style={{ backgroundImage: 'radial-gradient(circle, #dfe6eb 1px, transparent 1px)', backgroundSize: `${32 * canvas.scale}px ${32 * canvas.scale}px`, backgroundPosition: `${canvas.pan.x}px ${canvas.pan.y}px` }} />
 
           {/* Welcome Screen Component */}
           <WelcomeScreen visible={nodes.length === 0} />
@@ -1531,7 +1531,7 @@ export const App = () => {
               {/* Groups Layer */}
               {groups.map(g => (
                   <div 
-                      key={g.id} className={`absolute rounded-[32px] border transition-all ${(draggingGroup?.id === g.id || draggingNodeParentGroupId === g.id) ? 'duration-0' : 'duration-300'} ${selectedGroupId === g.id ? 'border-cyan-500/30 bg-cyan-500/5' : 'border-white/10 bg-white/5'}`} style={{ left: g.x, top: g.y, width: g.width, height: g.height }} 
+                      key={g.id} className={`absolute rounded-lg border transition-all ${(draggingGroup?.id === g.id || draggingNodeParentGroupId === g.id) ? 'duration-0' : 'duration-300'} ${selectedGroupId === g.id ? 'border-[rgba(57,230,163,0.35)] bg-[rgba(57,230,163,0.06)]' : 'border-white/10 bg-white/[0.035]'}`} style={{ left: g.x, top: g.y, width: g.width, height: g.height }} 
                       onMouseDown={(e) => { 
                           e.stopPropagation(); setSelectedGroupId(g.id); 
                           const childNodes = nodes.filter(n => { const b = getNodeBounds(n); const cx = b.x + b.width/2; const cy = b.y + b.height/2; return cx>g.x && cx<g.x+g.width && cy>g.y && cy<g.y+g.height; }).map(n=>({id:n.id, startX:n.x, startY:n.y}));
@@ -1593,7 +1593,7 @@ export const App = () => {
                   );
               })}
 
-              {selectionRect && <div className="absolute border border-cyan-500/40 bg-cyan-500/10 rounded-lg pointer-events-none" style={{ left: (Math.min(selectionRect.startX, selectionRect.currentX) - canvas.pan.x) / canvas.scale, top: (Math.min(selectionRect.startY, selectionRect.currentY) - canvas.pan.y) / canvas.scale, width: Math.abs(selectionRect.currentX - selectionRect.startX) / canvas.scale, height: Math.abs(selectionRect.currentY - selectionRect.startY) / canvas.scale }} />}
+              {selectionRect && <div className="absolute border border-[rgba(57,230,163,0.45)] bg-[rgba(57,230,163,0.1)] rounded-lg pointer-events-none" style={{ left: (Math.min(selectionRect.startX, selectionRect.currentX) - canvas.pan.x) / canvas.scale, top: (Math.min(selectionRect.startY, selectionRect.currentY) - canvas.pan.y) / canvas.scale, width: Math.abs(selectionRect.currentX - selectionRect.startX) / canvas.scale, height: Math.abs(selectionRect.currentY - selectionRect.startY) / canvas.scale }} />}
           </div>
 
           {/* Context Menu Component */}
@@ -1865,7 +1865,7 @@ export const App = () => {
                               alert('❌ 连接失败: ' + error.message);
                           }
                       }}
-                      className="flex items-center gap-2 px-4 py-2 bg-orange-500/20 backdrop-blur-2xl border border-orange-500/30 rounded-full shadow-2xl text-orange-300 hover:text-orange-200 hover:border-orange-500/50 transition-all hover:scale-105 animate-pulse"
+                      className="flex items-center gap-2 px-4 py-2 bg-orange-500/15 backdrop-blur-2xl border border-orange-500/25 rounded-lg text-orange-300 hover:text-orange-200 hover:border-orange-500/50 transition-all hover:scale-[1.02] animate-pulse"
                       title="点击重新连接本地存储文件夹"
                   >
                       <HardDrive size={16} />
@@ -1877,7 +1877,7 @@ export const App = () => {
                   <>
                       <button
                           onClick={saveCurrentAsWorkflow}
-                          className="flex items-center gap-2 px-4 py-2 bg-[#1c1c1e]/80 backdrop-blur-2xl border border-white/10 rounded-full shadow-2xl text-slate-300 hover:text-white hover:border-white/20 transition-all hover:scale-105"
+                          className="flex items-center gap-2 px-4 py-2 bg-[#090a0b]/90 backdrop-blur-2xl border border-white/10 rounded-lg text-slate-300 hover:text-white hover:border-white/20 transition-all hover:scale-[1.02]"
                           title="保存当前工作流"
                       >
                           <Save size={16} />
@@ -1885,7 +1885,7 @@ export const App = () => {
                       </button>
                       <button
                           onClick={() => setLanguage(language === 'zh' ? 'en' : 'zh')}
-                          className="flex items-center gap-2 px-4 py-2 bg-[#1c1c1e]/80 backdrop-blur-2xl border border-white/10 rounded-full shadow-2xl text-slate-300 hover:text-white hover:border-white/20 transition-all hover:scale-105"
+                          className="flex items-center gap-2 px-4 py-2 bg-[#090a0b]/90 backdrop-blur-2xl border border-white/10 rounded-lg text-slate-300 hover:text-white hover:border-white/20 transition-all hover:scale-[1.02]"
                           title={t.settings.language}
                       >
                           <Languages size={16} />
@@ -1897,14 +1897,14 @@ export const App = () => {
 
           {/* 放大缩小按钮 - 只在进入画布后显示 */}
           {nodes.length > 0 && (
-              <div className="absolute bottom-8 right-8 flex items-center gap-3 px-4 py-2 bg-[#1c1c1e]/80 backdrop-blur-2xl border border-white/10 rounded-full shadow-2xl z-50 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                  <button onClick={() => canvas.setScale(s => Math.max(0.2, s - 0.1))} className="p-1.5 text-slate-400 hover:text-white transition-colors rounded-full hover:bg-white/10"><Minus size={14} strokeWidth={3} /></button>
+              <div className="absolute bottom-8 right-8 flex items-center gap-3 px-4 py-2 bg-[#090a0b]/90 backdrop-blur-2xl border border-white/10 rounded-lg z-50 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                  <button onClick={() => canvas.setScale(s => Math.max(0.2, s - 0.1))} className="p-1.5 text-slate-400 hover:text-white transition-colors rounded-md hover:bg-white/10"><Minus size={14} strokeWidth={3} /></button>
                   <div className="flex items-center gap-2 min-w-[100px]">
-                       <input type="range" min="0.2" max="3" step="0.1" value={canvas.scale} onChange={(e) => canvas.setScale(parseFloat(e.target.value))} className="w-24 h-1 bg-white/20 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-lg hover:[&::-webkit-slider-thumb]:scale-125 transition-all" />
+                       <input type="range" min="0.2" max="3" step="0.1" value={canvas.scale} onChange={(e) => canvas.setScale(parseFloat(e.target.value))} className="w-24 h-1 bg-white/20 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[rgba(57,230,163,0.95)] hover:[&::-webkit-slider-thumb]:scale-125 transition-all" />
                        <span className="text-[10px] font-bold text-slate-400 w-8 text-right tabular-nums cursor-pointer hover:text-white" onClick={() => canvas.setScale(1)} title="Reset Zoom">{Math.round(canvas.scale * 100)}%</span>
                   </div>
-                  <button onClick={() => canvas.setScale(s => Math.min(3, s + 0.1))} className="p-1.5 text-slate-400 hover:text-white transition-colors rounded-full hover:bg-white/10"><Plus size={14} strokeWidth={3} /></button>
-                  <button onClick={handleFitView} className="p-1.5 text-slate-400 hover:text-white transition-colors rounded-full hover:bg-white/10 ml-2 border-l border-white/10 pl-3" title="适配视图">
+                  <button onClick={() => canvas.setScale(s => Math.min(3, s + 0.1))} className="p-1.5 text-slate-400 hover:text-white transition-colors rounded-md hover:bg-white/10"><Plus size={14} strokeWidth={3} /></button>
+                  <button onClick={handleFitView} className="p-1.5 text-slate-400 hover:text-white transition-colors rounded-md hover:bg-white/10 ml-2 border-l border-white/10 pl-3" title="适配视图">
                       <Scan size={14} strokeWidth={3} />
                   </button>
               </div>
