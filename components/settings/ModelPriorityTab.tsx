@@ -35,7 +35,7 @@ const CATEGORIES: Record<string, CategoryConfig> = {
   video: {
     label: '视频模型',
     icon: Video,
-    description: '文生视频、分镜视频生成',
+    description: '文生视频、分镜视频生成，包含 Seedance / 豆包',
     localStorageKey: 'default_video_model',
     builtinModels: VIDEO_MODELS.map(m => ({ id: m.id, name: m.name }))
   },

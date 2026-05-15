@@ -92,7 +92,7 @@ export const SoraSettingsTab: React.FC<SoraSettingsTabProps> = React.memo(({ onC
 
   const providerDescriptions: Record<SoraProviderType, string> = {
     sutu: '速创 API：支持 Sora2 标准版和 Pro 版，根据高清开关自动选择',
-    yunwu: '云雾 API：新增接口，稳定性较好',
+    yunwu: '云雾 API：新增接口，稳定性较好，支持 Seedance / 豆包 等视频模型',
     dayuapi: '大洋芋 API：通过模型名称控制参数，支持 10/15/25 秒视频',
     kie: 'KIE AI API：支持图生视频和文生视频，参数通过 input 对象传递',
     yijiapi: '一加API：支持文生视频，使用 size 参数控制分辨率',
@@ -198,7 +198,7 @@ export const SoraSettingsTab: React.FC<SoraSettingsTabProps> = React.memo(({ onC
           <div className="p-4 bg-black/40 border border-white/10 rounded-xl space-y-3">
             <label className="block">
               <span className="text-sm font-medium text-slate-300">云雾API平台 Key</span>
-              <span className="text-xs text-slate-500 ml-2">(支持 Veo/Luma/Runway/海螺/豆包/Grok/通义/Sora)</span>
+              <span className="text-xs text-slate-500 ml-2">(支持 Veo/Luma/Runway/海螺/Seedance / 豆包/Grok/通义/Sora)</span>
             </label>
             <div className="flex gap-2">
               <div className="flex-1 relative">

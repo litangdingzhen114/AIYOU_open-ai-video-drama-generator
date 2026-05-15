@@ -173,6 +173,18 @@ export const VIDEO_MODELS: ModelInfo[] = [
     tags: ['sora', 'openai', 'pro', 'horizontal', '25s', '1080p', 'ultra-long']
   },
   {
+    id: 'volcengine',
+    name: 'Seedance / 豆包',
+    category: 'video',
+    priority: 1,
+    quality: 9,
+    speed: 8,
+    cost: 7,
+    capabilities: ['Seedance 2.0', 'Seedance 2.0 Pro', '文生视频', '图生视频', '按次计费'],
+    description: '字节跳动 Seedance / 火山引擎视频生成模型',
+    tags: ['seedance', 'volcengine', 'video-generation']
+  },
+  {
     id: 'veo-3.1-generate-preview',
     name: 'Veo 3.1',
     category: 'video',

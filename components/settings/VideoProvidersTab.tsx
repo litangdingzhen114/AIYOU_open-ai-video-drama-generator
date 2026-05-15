@@ -131,8 +131,8 @@ export const VideoProvidersTab: React.FC<VideoProvidersTabProps> = React.memo(({
 
         <div className="rounded-xl border border-cyan-500/20 bg-cyan-500/10 p-4">
           <p className="text-[11px] text-slate-300 leading-relaxed">
-            Sora 2 的实际 API Key 仍在「Sora 2」标签页配置；这里的目录只负责展示注册状态和能力信息，
-            方便后续把其他视频提供商接进同一套路由。
+            Sora 2 的实际 API Key 仍在「Sora 2」标签页配置；Seedance / 豆包 已经会出现在「默认模型」和「Sora 2」里，
+            这里的目录只负责展示独立提供商的注册状态和能力信息。
           </p>
         </div>
       </div>
