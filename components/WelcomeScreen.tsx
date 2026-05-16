@@ -42,20 +42,12 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = React.memo(({ visible
 
       {/* 标题 */}
       <div className="flex flex-col items-center justify-center mb-10 select-none animate-in fade-in slide-in-from-bottom-8 duration-1000">
-        <div className="relative mb-8">
+        <div className="relative mb-8 w-full max-w-5xl px-4">
           <img
             src="/logo.png"
             alt="AIYOU Logo"
-            className="h-40 md:h-52 object-contain"
+            className="h-80 md:h-[500px] xl:h-[600px] w-full object-contain"
           />
-        </div>
-
-        <div className="flex items-center gap-4">
-          <div className="h-px w-16 bg-white/25"></div>
-          <span className="text-xl md:text-2xl font-medium text-white">
-            {t.welcome}
-          </span>
-          <div className="h-px w-16 bg-white/25"></div>
         </div>
       </div>
     </div>
