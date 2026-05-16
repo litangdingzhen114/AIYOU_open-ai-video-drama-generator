@@ -660,7 +660,7 @@ export const BottomPanel: React.FC<BottomPanelContext> = (ctx) => {
                      {status === 'prompting' && (
                          (() => {
                              const selectedPlatform = data.selectedPlatform || 'yunwuapi';
-                             const selectedModel = data.selectedModel || 'luma';
+                             const selectedModel = data.selectedModel || 'volcengine';
                              const modelConfig = data.modelConfig || {
                                  aspect_ratio: '16:9',
                                  duration: '5',
@@ -1810,7 +1810,7 @@ export const BottomPanel: React.FC<BottomPanelContext> = (ctx) => {
                                     <div className="h-full flex flex-col items-center justify-center text-slate-600">
                                         <Film size={48} className="mb-3 opacity-30" />
                                         <p className="text-xs">请连接视频节点</p>
-                                        <p className="text-[10px] mt-1 opacity-60">支持: 文生视频、Sora 2 视频、分镜视频、视频分析、视频编辑器</p>
+                                        <p className="text-[10px] mt-1 opacity-60">支持: 文生视频、Sora 2 视频、Seedance 2.0 视频、视频分析、视频编辑器</p>
                                     </div>
                                 );
                             }

@@ -5,6 +5,7 @@
 
 import { llmProviderManager } from './llmProviders';
 import { getUserDefaultModel } from './modelConfig';
+import { generateOpenAIImages, isOpenAIImageModel } from './openaiImageService';
 
 export interface GenerateImageOptions {
     count?: number;
@@ -28,9 +29,8 @@ export const generateImageWithProvider = async (
 ): Promise<string[]> => {
     const effectiveModel = model || getUserDefaultModel('image');
 
-
-    // 如果设置了 aspectRatio，特别提示
-    if (options?.aspectRatio) {
+    if (isOpenAIImageModel(effectiveModel)) {
+        return await generateOpenAIImages(prompt, effectiveModel, referenceImages, options);
     }
 
     try {
@@ -53,6 +53,10 @@ export const generateImageWithProvider = async (
  * 获取当前图片生成提供商名称
  */
 export const getCurrentImageProvider = (): string => {
+    const defaultModel = getUserDefaultModel('image');
+    if (isOpenAIImageModel(defaultModel)) {
+        return 'OpenAI GPT Image';
+    }
     return llmProviderManager.getCurrentProvider().getName();
 };
 
@@ -60,6 +64,6 @@ export const getCurrentImageProvider = (): string => {
  * 检查当前提供商是否支持图片生成
  */
 export const isImageGenerationSupported = (): boolean => {
-    const provider = llmProviderManager.getCurrentProvider();
-    return provider.getType() === 'gemini' || provider.getType() === 'yunwu';
+  const provider = llmProviderManager.getCurrentProvider();
+  return provider.getType() === 'gemini' || provider.getType() === 'yunwu' || !!localStorage.getItem('OPENAI_API_KEY')?.trim();
 };

@@ -538,6 +538,8 @@ export const App = () => {
           case NodeType.STORYBOARD_SPLITTER: return '分镜图拆解';
           case NodeType.SORA_VIDEO_GENERATOR: return 'Sora 2 视频';
           case NodeType.SORA_VIDEO_CHILD: return 'Sora 2 视频结果';
+          case NodeType.STORYBOARD_VIDEO_GENERATOR: return 'Seedance 2.0 视频';
+          case NodeType.STORYBOARD_VIDEO_CHILD: return 'Seedance 视频结果';
           case NodeType.CHARACTER_NODE: return t.nodes.characterNode;
           case NodeType.DRAMA_ANALYZER: return '剧目分析';
           case NodeType.DRAMA_REFINED: return '剧目精炼';
@@ -668,6 +670,8 @@ export const App = () => {
       }
       try { saveHistory(); } catch (e) { }
 
+      const { title: customTitle, ...nodeOverrides } = initialData || {};
+
       // 根据节点类型选择合适的默认模型
       const getDefaultModel = () => {
           switch (type) {
@@ -709,8 +713,22 @@ export const App = () => {
           storyboardCount: type === NodeType.STORYBOARD_GENERATOR ? 6 : undefined,
           storyboardDuration: type === NodeType.STORYBOARD_GENERATOR ? 4 : undefined,
           storyboardStyle: type === NodeType.STORYBOARD_GENERATOR ? 'REAL' : undefined,
-          ...initialData
+          selectedPlatform: type === NodeType.STORYBOARD_VIDEO_GENERATOR ? 'yunwuapi' : undefined,
+          selectedModel: type === NodeType.STORYBOARD_VIDEO_GENERATOR ? 'volcengine' : undefined,
+          subModel: type === NodeType.STORYBOARD_VIDEO_GENERATOR ? 'doubao-video-1' : undefined,
+          modelConfig: type === NodeType.STORYBOARD_VIDEO_GENERATOR ? {
+              aspect_ratio: '16:9',
+              duration: '5',
+              quality: 'standard'
+          } : undefined,
+          ...nodeOverrides
       };
+
+      const nodeTitle =
+          customTitle ||
+          (type === NodeType.IMAGE_GENERATOR && typeof defaults.model === 'string' && defaults.model.startsWith('gpt-image')
+              ? 'GPT 生图'
+              : getNodeNameCN(type));
 
       const safeX = x !== undefined ? x : (-canvas.pan.x + window.innerWidth/2)/canvas.scale - 210;
       const safeY = y !== undefined ? y : (-canvas.pan.y + window.innerHeight/2)/canvas.scale - 180;
@@ -721,7 +739,7 @@ export const App = () => {
         x: isNaN(safeX) ? 100 : safeX,
         y: isNaN(safeY) ? 100 : safeY,
         width: 420,
-        title: getNodeNameCN(type),
+        title: nodeTitle,
         status: NodeStatus.IDLE,
         data: defaults,
         inputs: []
@@ -1822,7 +1840,7 @@ export const App = () => {
           <NotificationToast />
 
           <SidebarDock
-              onAddNode={addNode}
+              onAddNode={(type, initialData) => addNode(type, undefined, undefined, initialData)}
               onUndo={undo}
               isChatOpen={isChatOpen}
               onToggleChat={() => setIsChatOpen(!isChatOpen)}

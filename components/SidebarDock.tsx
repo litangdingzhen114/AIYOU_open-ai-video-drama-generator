@@ -8,10 +8,9 @@ import {
     Clapperboard, Mic2, Settings, BookOpen, ScrollText, User, Search, Sparkles, Palette, Bug, LayoutGrid, Grid, Wand2
 } from 'lucide-react';
 import { NodeType, Workflow } from '../types';
-import { getNodeNameCN } from '../utils/nodeHelpers';
 
 interface SidebarDockProps {
-    onAddNode: (type: NodeType) => void;
+    onAddNode: (type: NodeType, initialData?: any) => void;
     onUndo: () => void;
     isChatOpen: boolean;
     onToggleChat: () => void;
@@ -50,32 +49,72 @@ interface SidebarDockProps {
     onOpenSettings: () => void;
 }
 
-// ... (Helper Helpers UNCHANGED) ...
-const getNodeIcon = (t: string) => {
-    switch(t) {
-        case NodeType.PROMPT_INPUT: return Type;
-        case NodeType.IMAGE_GENERATOR: return ImageIcon;
-        case NodeType.VIDEO_GENERATOR: return Film;
-        case NodeType.AUDIO_GENERATOR: return Mic2;
-        case NodeType.VIDEO_ANALYZER: return ScanFace;
-        case NodeType.IMAGE_EDITOR: return Brush;
-        case NodeType.SCRIPT_PLANNER: return BookOpen;
-        case NodeType.SCRIPT_EPISODE: return ScrollText;
-        case NodeType.STORYBOARD_GENERATOR: return Clapperboard;
-        case NodeType.STORYBOARD_IMAGE: return LayoutGrid;
-        case NodeType.STORYBOARD_SPLITTER: return Grid;
-        case NodeType.SORA_VIDEO_GENERATOR: return Wand2;
-        case NodeType.STORYBOARD_VIDEO_GENERATOR: return Film;
-        case NodeType.CHARACTER_NODE: return User;
-        case NodeType.DRAMA_ANALYZER: return Search;
-        case NodeType.DRAMA_REFINED: return Sparkles;
-        case NodeType.STYLE_PRESET: return Palette;
-        case NodeType.VIDEO_EDITOR: return Film;
-        default: return Plus;
-    }
+const SPRING = "cubic-bezier(0.32, 0.72, 0, 1)";
+
+type AddNodeAction = {
+    type: NodeType;
+    label: string;
+    icon: React.ElementType;
+    initialData?: any;
 };
 
-const SPRING = "cubic-bezier(0.32, 0.72, 0, 1)";
+type AddNodeSection = {
+    title: string;
+    icon: React.ElementType;
+    items: AddNodeAction[];
+};
+
+const ADD_NODE_SECTIONS: AddNodeSection[] = [
+    {
+        title: '剧本',
+        icon: BookOpen,
+        items: [
+            { type: NodeType.SCRIPT_PLANNER, label: '剧本大纲', icon: BookOpen },
+            { type: NodeType.SCRIPT_EPISODE, label: '剧本分集', icon: ScrollText },
+            { type: NodeType.CHARACTER_NODE, label: '角色设计', icon: User },
+            { type: NodeType.STYLE_PRESET, label: '全局风格', icon: Palette },
+            { type: NodeType.DRAMA_ANALYZER, label: '剧目分析', icon: Search },
+            { type: NodeType.DRAMA_REFINED, label: '剧目精炼', icon: Sparkles },
+        ]
+    },
+    {
+        title: '图像',
+        icon: ImageIcon,
+        items: [
+            {
+                type: NodeType.IMAGE_GENERATOR,
+                label: 'GPT 生图',
+                icon: Wand2,
+                initialData: { model: 'gpt-image-2', title: 'GPT 生图' }
+            },
+            {
+                type: NodeType.IMAGE_GENERATOR,
+                label: 'Gemini 生图',
+                icon: ImageIcon,
+                initialData: { model: 'gemini-3-pro-image-preview', title: 'Gemini 生图' }
+            },
+            { type: NodeType.IMAGE_EDITOR, label: '图像编辑', icon: Brush },
+            { type: NodeType.STORYBOARD_IMAGE, label: '分镜图设计', icon: LayoutGrid },
+        ]
+    },
+    {
+        title: '视频',
+        icon: VideoIcon,
+        items: [
+            { type: NodeType.SORA_VIDEO_GENERATOR, label: 'Sora 2 视频', icon: Wand2 },
+            { type: NodeType.STORYBOARD_VIDEO_GENERATOR, label: 'Seedance 2.0 视频', icon: Film },
+            { type: NodeType.STORYBOARD_SPLITTER, label: '分镜图拆解', icon: Grid },
+            { type: NodeType.VIDEO_EDITOR, label: '视频编辑器', icon: VideoIcon },
+        ]
+    },
+    {
+        title: '分析',
+        icon: Search,
+        items: [
+            { type: NodeType.VIDEO_ANALYZER, label: '视频分析', icon: ScanFace },
+        ]
+    }
+];
 
 export const SidebarDock: React.FC<SidebarDockProps> = ({
     onAddNode,
@@ -298,22 +337,39 @@ export const SidebarDock: React.FC<SidebarDockProps> = ({
                         添加节点
                     </span>
                 </div>
-                <div className="flex-1 overflow-y-auto p-2 custom-scrollbar space-y-2">
-                    {[NodeType.SCRIPT_PLANNER, NodeType.SCRIPT_EPISODE, NodeType.CHARACTER_NODE, NodeType.STORYBOARD_IMAGE, NodeType.STORYBOARD_SPLITTER, NodeType.SORA_VIDEO_GENERATOR, NodeType.STORYBOARD_VIDEO_GENERATOR, NodeType.DRAMA_ANALYZER, NodeType.VIDEO_EDITOR].map(t => {
-                        const ItemIcon = getNodeIcon(t);
+                <div className="flex-1 overflow-y-auto p-3 custom-scrollbar space-y-4">
+                    {ADD_NODE_SECTIONS.map((section) => {
+                        const SectionIcon = section.icon;
                         return (
-                            <button
-                                key={t}
-                                onClick={(e) => { e.stopPropagation(); onAddNode(t); setActivePanel(null); }}
-                        className="w-full text-left p-3 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] flex items-center gap-3 text-sm text-slate-200 transition-colors border border-white/5 hover:border-[rgba(57,230,163,0.2)]"
-                            >
-                                <div className="p-2 bg-white/[0.08] rounded-md text-[rgba(57,230,163,0.92)]">
-                                    <ItemIcon size={16} />
+                            <div key={section.title} className="space-y-2">
+                                <div className="flex items-center gap-2 px-1 text-[10px] font-bold tracking-[0.18em] uppercase text-white/30">
+                                    <SectionIcon size={12} />
+                                    <span>{section.title}</span>
                                 </div>
-                                <div className="flex flex-col">
-                                    <span className="font-medium text-xs">{getNodeNameCN(t)}</span>
+                                <div className="space-y-2">
+                                    {section.items.map((item) => {
+                                        const ItemIcon = item.icon;
+                                        return (
+                                            <button
+                                                key={item.label}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    onAddNode(item.type, item.initialData);
+                                                    setActivePanel(null);
+                                                }}
+                                                className="w-full text-left p-3 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] flex items-center gap-3 text-sm text-slate-200 transition-colors border border-white/5 hover:border-[rgba(57,230,163,0.2)]"
+                                            >
+                                                <div className="p-2 bg-white/[0.08] rounded-md text-[rgba(57,230,163,0.92)]">
+                                                    <ItemIcon size={16} />
+                                                </div>
+                                                <div className="flex flex-col min-w-0">
+                                                    <span className="font-medium text-xs truncate">{item.label}</span>
+                                                </div>
+                                            </button>
+                                        );
+                                    })}
                                 </div>
-                            </button>
+                            </div>
                         );
                     })}
                 </div>

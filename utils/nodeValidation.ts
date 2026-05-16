@@ -280,7 +280,7 @@ export const NODE_DEPENDENCY_RULES: Record<NodeType, {
     description: '显示单个 Sora 2 视频生成结果'
   },
 
-  // 分镜视频生成器 - 接收分镜图拆解输入,支持多模型视频生成
+  // Seedance 2.0 视频生成器 - 接收分镜图拆解输入,支持多模型视频生成
   [NodeType.STORYBOARD_VIDEO_GENERATOR]: {
     allowedInputs: [
       NodeType.STORYBOARD_SPLITTER
@@ -290,7 +290,7 @@ export const NODE_DEPENDENCY_RULES: Record<NodeType, {
     ],
     minInputs: 1,
     maxInputs: 5,  // Can accept up to 5 splitter nodes
-    description: '从分镜拆解节点获取分镜，支持多平台多模型视频生成（云雾API平台支持8个模型）'
+    description: '从分镜拆解节点获取分镜，默认使用 Seedance 2.0，也可切换其他视频模型'
   },
 
   // 分镜视频子节点 - 仅作为显示节点,由父节点自动创建
@@ -303,7 +303,7 @@ export const NODE_DEPENDENCY_RULES: Record<NodeType, {
     ],
     minInputs: 1,
     maxInputs: 1,
-    description: '显示单个分镜视频生成结果'
+    description: '显示单个 Seedance 2.0 视频生成结果'
   },
 
   // 视频编辑器 - 接收多个视频节点,支持拼接和编辑
@@ -588,7 +588,7 @@ export function canExecuteNode(
 function getNodeDisplayName(type: NodeType): string {
   const names: Record<NodeType, string> = {
     [NodeType.PROMPT_INPUT]: '创意描述',
-    [NodeType.IMAGE_GENERATOR]: '文字生图',
+    [NodeType.IMAGE_GENERATOR]: '图像生成',
     [NodeType.VIDEO_GENERATOR]: '文生视频',
     [NodeType.AUDIO_GENERATOR]: '灵感音乐',
     [NodeType.VIDEO_ANALYZER]: '视频分析',
@@ -599,8 +599,8 @@ function getNodeDisplayName(type: NodeType): string {
     [NodeType.STORYBOARD_IMAGE]: '分镜图设计',
     [NodeType.STORYBOARD_SPLITTER]: '分镜图拆解',
     [NodeType.SORA_VIDEO_GENERATOR]: 'Sora 2 视频',
-    [NodeType.STORYBOARD_VIDEO_GENERATOR]: '分镜视频生成',
-    [NodeType.STORYBOARD_VIDEO_CHILD]: '分镜视频结果',
+    [NodeType.STORYBOARD_VIDEO_GENERATOR]: 'Seedance 2.0 视频',
+    [NodeType.STORYBOARD_VIDEO_CHILD]: 'Seedance 视频结果',
     [NodeType.CHARACTER_NODE]: '角色设计',
     [NodeType.DRAMA_ANALYZER]: '剧目分析',
     [NodeType.DRAMA_REFINED]: '剧目精炼',

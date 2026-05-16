@@ -140,15 +140,15 @@ export function useWorkflowActions(params: UseWorkflowActionsParams) {
       try {
           const res = await getProject(wf.projectId);
           if (res.success && res.data) {
-              const { nodes: dbNodes, connections: dbConns, groups: dbGroups } = res.data;
-              if (dbNodes && dbNodes.length > 0) {
-                  const mappedNodes = dbNodes.map((n: any) => {
-                      let data = n.data || {};
-                      if (typeof data === 'string') { try { data = JSON.parse(data); } catch { data = {}; } }
-                      let inputs = n.inputs || [];
-                      if (typeof inputs === 'string') { try { inputs = JSON.parse(inputs); } catch { inputs = []; } }
-                      return { ...n, data, inputs, title: getNodeNameCN(n.type) };
-                  });
+                  const { nodes: dbNodes, connections: dbConns, groups: dbGroups } = res.data;
+                  if (dbNodes && dbNodes.length > 0) {
+                      const mappedNodes = dbNodes.map((n: any) => {
+                          let data = n.data || {};
+                          if (typeof data === 'string') { try { data = JSON.parse(data); } catch { data = {}; } }
+                          let inputs = n.inputs || [];
+                          if (typeof inputs === 'string') { try { inputs = JSON.parse(inputs); } catch { inputs = []; } }
+                      return { ...n, data, inputs, title: n.title || getNodeNameCN(n.type) };
+                      });
                   const mappedConns = (dbConns || []).map((c: any) => ({
                       id: c.id, from: c.from_node || c.from, to: c.to_node || c.to,
                   }));

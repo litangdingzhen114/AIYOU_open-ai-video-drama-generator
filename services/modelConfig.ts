@@ -19,7 +19,7 @@ export interface ModelInfo {
   isDefault?: boolean;
 }
 
-// 图片生成模型 - 使用 Gemini API 官方文档推荐的模型
+// 图片生成模型 - 包含 Gemini 与 OpenAI GPT Image 2
 // 参考: https://ai.google.dev/gemini-api/docs/image-generation
 export const IMAGE_MODELS: ModelInfo[] = [
   {
@@ -34,6 +34,18 @@ export const IMAGE_MODELS: ModelInfo[] = [
     description: 'Gemini 3.1 Pro 预览版，最高质量的图像生成',
     tags: ['pro', 'high-quality', 'image-generation'],
     isDefault: true
+  },
+  {
+    id: 'gpt-image-2',
+    name: 'GPT Image 2',
+    category: 'image',
+    priority: 2,
+    quality: 9,
+    speed: 8,
+    cost: 5,
+    capabilities: ['高质量文本生图', '图像编辑', '支持参考图', 'GPT 生图'],
+    description: 'OpenAI GPT Image 2，适合高质量文本生图与图像编辑',
+    tags: ['openai', 'gpt-image-2', 'image-generation']
   },
   {
     id: 'gemini-2.5-flash-image',

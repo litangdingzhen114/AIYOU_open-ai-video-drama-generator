@@ -639,7 +639,7 @@ const NodeComponent: React.FC<NodeProps> = ({
               onClick={() => setIsEditingTitle(true)}
               title="点击编辑节点名称"
             >
-              {getNodeNameCN(node.type)}
+              {node.title || getNodeNameCN(node.type)}
             </span>
           )}
           <NodeInfoTooltip type={node.type} />

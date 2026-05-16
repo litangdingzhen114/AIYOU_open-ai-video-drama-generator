@@ -40,8 +40,8 @@ export function getNodeNameCN(type: NodeType): string {
     case NodeType.STORYBOARD_SPLITTER: return '分镜图拆解';
     case NodeType.SORA_VIDEO_GENERATOR: return 'Sora 2 视频';
     case NodeType.SORA_VIDEO_CHILD: return 'Sora 2 视频结果';
-    case NodeType.STORYBOARD_VIDEO_GENERATOR: return '分镜视频生成';
-    case NodeType.STORYBOARD_VIDEO_CHILD: return '分镜视频结果';
+    case NodeType.STORYBOARD_VIDEO_GENERATOR: return 'Seedance 2.0 视频';
+    case NodeType.STORYBOARD_VIDEO_CHILD: return 'Seedance 视频结果';
     case NodeType.CHARACTER_NODE: return '角色设计';
     case NodeType.DRAMA_ANALYZER: return '剧目分析';
     case NodeType.DRAMA_REFINED: return '剧目精炼';
@@ -59,7 +59,7 @@ export function getNodeInfo(type: NodeType): { description: string; inputs: stri
     case NodeType.PROMPT_INPUT:
       return { description: '输入创意文字描述，作为后续生成的起点', inputs: '无', outputs: '文字生图、文生视频、灵感音乐、剧本大纲' };
     case NodeType.IMAGE_GENERATOR:
-      return { description: '根据文字描述生成图片', inputs: '创意描述、全局风格', outputs: '图像编辑、文生视频、分镜图设计' };
+      return { description: '根据文字或参考图生成图片，支持 Gemini / GPT Image 2 等模型', inputs: '创意描述、全局风格、参考图', outputs: '图像编辑、文生视频、分镜图设计、角色设计' };
     case NodeType.VIDEO_GENERATOR:
       return { description: '根据文字或图片生成视频', inputs: '创意描述、文字生图、全局风格', outputs: '视频分析、视频编辑器' };
     case NodeType.AUDIO_GENERATOR:
@@ -77,15 +77,15 @@ export function getNodeInfo(type: NodeType): { description: string; inputs: stri
     case NodeType.STORYBOARD_IMAGE:
       return { description: '为每个分镜生成对应的参考图片', inputs: '分镜生成、角色设计、全局风格', outputs: '分镜图拆解' };
     case NodeType.STORYBOARD_SPLITTER:
-      return { description: '将分镜拆解为可独立生成视频的片段', inputs: '分镜生成、分镜图设计', outputs: 'Sora 2 视频、分镜视频生成' };
+      return { description: '将分镜拆解为可独立生成视频的片段', inputs: '分镜生成、分镜图设计', outputs: 'Sora 2 视频、Seedance 2.0 视频' };
     case NodeType.SORA_VIDEO_GENERATOR:
       return { description: '使用 Sora 2 API 生成高质量视频片段', inputs: '分镜图拆解', outputs: 'Sora 2 视频结果' };
     case NodeType.SORA_VIDEO_CHILD:
       return { description: '展示 Sora 2 生成的单个视频结果', inputs: 'Sora 2 视频（自动生成）', outputs: '视频编辑器' };
     case NodeType.STORYBOARD_VIDEO_GENERATOR:
-      return { description: '使用多种视频模型生成分镜视频', inputs: '分镜图拆解', outputs: '分镜视频结果' };
+      return { description: '默认使用 Seedance 2.0 生成分镜视频，也可切换其他视频模型', inputs: '分镜图拆解', outputs: 'Seedance 视频结果' };
     case NodeType.STORYBOARD_VIDEO_CHILD:
-      return { description: '展示分镜视频生成的单个结果', inputs: '分镜视频生成（自动生成）', outputs: '视频编辑器' };
+      return { description: '展示 Seedance 2.0 生成的单个视频结果', inputs: 'Seedance 2.0 视频（自动生成）', outputs: '视频编辑器' };
     case NodeType.CHARACTER_NODE:
       return { description: '定义角色外观、性格等设定，保持一致性', inputs: '创意描述、剧本大纲、剧本分集、分镜生成', outputs: '分镜图设计' };
     case NodeType.DRAMA_ANALYZER:
@@ -95,7 +95,7 @@ export function getNodeInfo(type: NodeType): { description: string; inputs: stri
     case NodeType.STYLE_PRESET:
       return { description: '设置全局视觉风格，影响所有生成节点', inputs: '无', outputs: '文字生图、文生视频、分镜图设计' };
     case NodeType.VIDEO_EDITOR:
-      return { description: '将多个视频片段拼接、剪辑为完整作品', inputs: 'Sora 2 视频结果、分镜视频结果、灵感音乐', outputs: '无（最终产物）' };
+      return { description: '将多个视频片段拼接、剪辑为完整作品', inputs: 'Sora 2 视频结果、Seedance 视频结果、灵感音乐', outputs: '无（最终产物）' };
     default:
       return { description: '未知节点类型', inputs: '无', outputs: '无' };
   }

@@ -144,7 +144,8 @@ export class StoryboardVideoGeneratorNodeService extends BaseNodeService {
     // 4. 初始化默认配置
     const defaultConfig = {
       selectedPlatform: 'yunwuapi' as const,
-      selectedModel: 'luma' as const,
+      selectedModel: 'volcengine' as const,
+      subModel: 'doubao-video-1' as const,
       modelConfig: {
         aspect_ratio: '16:9' as const,
         duration: '5' as const,
@@ -321,7 +322,7 @@ export class StoryboardVideoGeneratorNodeService extends BaseNodeService {
       prompt: parentData.generatedPrompt,
       platformInfo: {
         platformCode: parentData.selectedPlatform || 'yunwuapi',
-        modelName: parentData.selectedModel || 'luma',
+        modelName: parentData.selectedModel || 'volcengine',
       },
       modelConfig: {
         aspect_ratio: parentData.modelConfig.aspect_ratio,

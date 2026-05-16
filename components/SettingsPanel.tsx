@@ -7,6 +7,7 @@ import { StorageSettingsPanel } from './StorageSettingsPanel';
 import { ModelPriorityTab } from './settings/ModelPriorityTab';
 import { SoraSettingsTab } from './settings/SoraSettingsTab';
 import { VideoProvidersTab } from './settings/VideoProvidersTab';
+import { GptImageTab } from './settings/GptImageTab';
 
 interface SettingsPanelProps {
   isOpen: boolean;
@@ -20,7 +21,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
   const [isValidating, setIsValidating] = useState(false);
   const [validationStatus, setValidationStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
-  const [activeTab, setActiveTab] = useState<'basic' | 'models' | 'providers' | 'storage' | 'sora'>('basic');
+  const [activeTab, setActiveTab] = useState<'basic' | 'models' | 'providers' | 'storage' | 'sora' | 'gpt'>('basic');
 
   // LLM 提供商配置
   const [llmProvider, setLlmProvider] = useState<LLMProviderType>('gemini');
@@ -271,6 +272,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
           {[
             { key: 'basic' as const, label: '基础设置', activeColor: 'text-[rgba(57,230,163,0.95)] border-[rgba(57,230,163,0.95)]' },
             { key: 'models' as const, label: '默认模型', activeColor: 'text-[rgba(57,230,163,0.95)] border-[rgba(57,230,163,0.95)]' },
+            { key: 'gpt' as const, label: 'GPT 生图', activeColor: 'text-[rgba(57,230,163,0.95)] border-[rgba(57,230,163,0.95)]' },
             { key: 'providers' as const, label: '视频提供商', activeColor: 'text-[rgba(57,230,163,0.95)] border-[rgba(57,230,163,0.95)]' },
             { key: 'sora' as const, label: 'Sora 2', activeColor: 'text-[rgba(57,230,163,0.95)] border-[rgba(57,230,163,0.95)]' },
             { key: 'storage' as const, label: '存储设置', activeColor: 'text-[rgba(57,230,163,0.95)] border-[rgba(57,230,163,0.95)]' },
@@ -529,6 +531,8 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = React.memo(({ isOpen,
             </div>
           ) : activeTab === 'models' ? (
             <ModelPriorityTab onClose={onClose} />
+          ) : activeTab === 'gpt' ? (
+            <GptImageTab onClose={onClose} />
           ) : activeTab === 'providers' ? (
             <VideoProvidersTab onClose={onClose} />
           ) : activeTab === 'sora' ? (

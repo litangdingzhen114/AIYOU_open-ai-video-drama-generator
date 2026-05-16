@@ -212,7 +212,12 @@ export const SketchEditor: React.FC<SketchEditorProps> = ({ onClose, onGenerate 
                 Style: Minimalist stick figure or outline drawing, clear lines, no shading.
                 `;
 
-                const res = await generateImageWithProvider(posePrompt, { aspectRatio: '16:9', model: getUserDefaultModel('image') });
+                const res = await generateImageWithProvider(
+                    posePrompt,
+                    getUserDefaultModel('image'),
+                    [],
+                    { aspectRatio: '16:9' }
+                );
                 const imgUrl = res[0];
 
                 // 2. Draw Result onto Canvas
@@ -260,11 +265,9 @@ export const SketchEditor: React.FC<SketchEditorProps> = ({ onClose, onGenerate 
                     // Image (Sketch-to-Image)
                     const res = await generateImageWithProvider(
                         prompt,
-                        {
-                            aspectRatio: '16:9',
-                            inputImages: [compositeBase64],
-                            model: getUserDefaultModel('image')
-                        }
+                        getUserDefaultModel('image'),
+                        [compositeBase64],
+                        { aspectRatio: '16:9' }
                     );
                     onGenerate('image', res[0], prompt);
                 }

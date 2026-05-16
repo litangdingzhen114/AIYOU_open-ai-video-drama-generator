@@ -1235,7 +1235,8 @@ export function useNodeActions(params: UseNodeActionsParams) {
 
                   // Get model config
                   const selectedPlatform = node.data.selectedPlatform || 'yunwuapi';
-                  const selectedModel = node.data.selectedModel || 'luma';
+                  const selectedModel = node.data.selectedModel || 'volcengine';
+                  const selectedSubModel = node.data.subModel || 'doubao-video-1';
                   const modelConfig = node.data.modelConfig || {
                       aspect_ratio: '16:9',
                       duration: '5',
@@ -1298,7 +1299,7 @@ export function useNodeActions(params: UseNodeActionsParams) {
                                   handleNodeUpdate(id, { progress: adjustedProgress });
                               },
                               signal: abortController.signal,  // 传递取消信号
-                              subModel: node.data.subModel  // 传递子模型
+                              subModel: selectedSubModel  // 传递子模型
                           }
                       );
 
@@ -1393,7 +1394,8 @@ export function useNodeActions(params: UseNodeActionsParams) {
 
                   // Get model config
                   const selectedPlatform = node.data.selectedPlatform || 'yunwuapi';
-                  const selectedModel = node.data.selectedModel || 'luma';
+                  const selectedModel = node.data.selectedModel || 'volcengine';
+                  const selectedSubModel = node.data.subModel || 'doubao-video-1';
                   const modelConfig = node.data.modelConfig || {
                       aspect_ratio: '16:9',
                       duration: '5',
@@ -1456,7 +1458,7 @@ export function useNodeActions(params: UseNodeActionsParams) {
                                   const adjustedProgress = 30 + Math.round(progress * 0.7);
                                   handleNodeUpdate(id, { progress: adjustedProgress });
                               },
-                              subModel: node.data.subModel  // 传递子模型
+                              subModel: selectedSubModel  // 传递子模型
                           }
                       );
 
@@ -1972,6 +1974,7 @@ export function useNodeActions(params: UseNodeActionsParams) {
                const stylePresetNode = inputs.find(n => n.type === NodeType.STYLE_PRESET);
                const stylePrefix = stylePresetNode?.data.stylePrompt || '';
                const finalPrompt = stylePrefix ? `${stylePrefix}, ${prompt}` : prompt;
+               const imageModel = node.data.model || getUserDefaultModel('image');
 
                const inputImages: string[] = [];
                inputs.forEach(n => { if (n?.data.image) inputImages.push(n.data.image); });
@@ -2021,7 +2024,7 @@ export function useNodeActions(params: UseNodeActionsParams) {
                           newNodes.forEach(async (n) => {
                                try {
                                    const { generateImageFromText } = await import('../services/geminiService');
-                                   const res = await generateImageFromText(n.data.prompt!, getUserDefaultModel('image'), inputImages, { aspectRatio: n.data.aspectRatio, resolution: n.data.resolution, count: 1 });
+                                   const res = await generateImageFromText(n.data.prompt!, imageModel, inputImages, { aspectRatio: n.data.aspectRatio, resolution: n.data.resolution, count: 1 });
                                    const uploadedImages = await uploadMultipleMedia(res, { nodeId: n.id, type: 'image' });
                                    handleNodeUpdate(n.id, { image: uploadedImages[0], images: uploadedImages, status: NodeStatus.SUCCESS });
                                } catch (e: any) {
@@ -2047,11 +2050,11 @@ export function useNodeActions(params: UseNodeActionsParams) {
                        cacheLocation: 'filesystem'
                    });
                } else {
-                   // ❌ 没有缓存，调用 API
+                  // ❌ 没有缓存，调用 API
                   const { generateImageFromText } = await import('../services/geminiService');
                   const res = await generateImageFromText(
                       finalPrompt,
-                      getUserDefaultModel('image'),
+                      imageModel,
                       inputImages,
                       { aspectRatio: node.data.aspectRatio || '16:9', resolution: node.data.resolution, count: node.data.imageCount },
                       { nodeId: id, nodeType: node.type }
@@ -2186,7 +2189,7 @@ export function useNodeActions(params: UseNodeActionsParams) {
                   `;
                   try {
                       const { generateImageFromText } = await import('../services/geminiService');
-                      const imgs = await generateImageFromText(visualPrompt, getUserDefaultModel('image'), [], { aspectRatio: node.data.aspectRatio || '16:9', count: 1 });
+                      const imgs = await generateImageFromText(visualPrompt, primaryImageModel, [], { aspectRatio: node.data.aspectRatio || '16:9', count: 1 });
                       if (imgs && imgs.length > 0) {
                           const uploadedImg = await uploadMediaToServer(imgs[0], { nodeId: id, type: 'image' });
                           updatedShots[shotIndex] = { ...shot, imageUrl: uploadedImg };
@@ -2391,7 +2394,7 @@ export function useNodeActions(params: UseNodeActionsParams) {
 
               // Get user-configured image model priority
               const imageModelPriority = getUserPriority('image' as ModelCategory);
-              const primaryImageModel = imageModelPriority[0] || getDefaultModel('image');
+              const primaryImageModel = node.data.model || imageModelPriority[0] || getDefaultModel('image');
 
               // Extract character reference images from upstream CHARACTER_NODE (for all cases)
               const characterReferenceImages: string[] = [];

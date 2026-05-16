@@ -65,7 +65,7 @@ const StoryboardVideoNodeComponent: React.FC<StoryboardVideoNodeProps> = ({
         <Film size={32} className="text-purple-400" />
       </div>
       <div className="text-center">
-        <h3 className="text-sm font-bold text-white mb-1">分镜视频生成</h3>
+        <h3 className="text-sm font-bold text-white mb-1">Seedance 2.0 视频</h3>
         <p className="text-xs text-slate-400">请在右侧操作区点击"获取分镜"按钮</p>
       </div>
     </div>

@@ -28,7 +28,7 @@ const CATEGORIES: Record<string, CategoryConfig> = {
   image: {
     label: '图片模型',
     icon: ImageIcon,
-    description: '文生图、角色设计、分镜图片生成',
+    description: '文生图、角色设计、分镜图片生成、GPT 生图',
     localStorageKey: 'default_image_model',
     builtinModels: IMAGE_MODELS.map(m => ({ id: m.id, name: m.name }))
   },
